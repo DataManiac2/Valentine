@@ -112,7 +112,6 @@ button.back:hover {
 </head>
 <body>
 
-<!-- Floating hearts container -->
 <div id="hearts-container"></div>
 
 <div class="card active">
@@ -142,10 +141,7 @@ button.back:hover {
 </div>
 
 <div class="card">
-    <p>
-        Even if you don’t always like me,<br>
-        my feelings don’t turn into pressure.
-    </p>
+    <p id="compliment">Even if you don’t always like me,<br>my feelings don’t turn into pressure.</p>
 
     <p class="small">
         This isn’t sacrifice.<br>
@@ -173,11 +169,26 @@ button.back:hover {
 let index = 0;
 const cards = document.querySelectorAll('.card');
 
+/* List of gentle compliments */
+const compliments = [
+    "I love the way you smile when no one is watching 🌸",
+    "You made my day today ❤️",
+    "Even small gestures of yours stay with me 💛",
+    "I love how you care, even quietly 🌷",
+    "You make my heart calm, even on chaos days 🌟"
+];
+
 function next() {
     if(index < cards.length - 1){
         cards[index].classList.remove('active');
         index++;
         cards[index].classList.add('active');
+
+        // Random compliment on the 4th card
+        if(index === 3){
+            const complimentEl = document.getElementById('compliment');
+            complimentEl.innerHTML += `<br><small style="color:#d67680">${compliments[Math.floor(Math.random()*compliments.length)]}</small>`;
+        }
     }
 }
 
@@ -189,9 +200,9 @@ function back() {
     }
 }
 
-/* Create floating hearts dynamically */
+/* Floating hearts dynamically */
 const heartsContainer = document.getElementById('hearts-container');
-for(let i=0; i<15; i++){
+for(let i=0; i<20; i++){
     let heart = document.createElement('div');
     heart.className = 'heart';
     heart.style.left = Math.random() * 100 + '%';

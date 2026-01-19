@@ -6,71 +6,103 @@
     <style>
         body {
             margin: 0;
-            padding: 0;
             background-color: #fdf2f4;
             font-family: Georgia, serif;
-            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
-        .container {
+        .card {
+            background: white;
+            width: 90%;
             max-width: 600px;
             padding: 40px;
-            text-align: center;
-            line-height: 1.8;
-            background: #ffffff;
             border-radius: 12px;
+            text-align: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            display: none;
         }
 
-        h1 {
-            font-weight: normal;
-            margin-bottom: 30px;
+        .card.active {
+            display: block;
+            opacity: 1;
         }
 
         p {
             font-size: 18px;
-            margin: 14px 0;
+            line-height: 1.8;
         }
 
-        .soft {
+        button {
             margin-top: 30px;
+            padding: 10px 24px;
             font-size: 16px;
-            color: #666;
+            border: none;
+            border-radius: 20px;
+            background-color: #e8a1a8;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #d98a92;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>This Valentine,</h1>
 
+    <div class="card active">
+        <p><strong>This Valentine,</strong></p>
         <p>I’m not here to ask for anything.</p>
+        <button onclick="nextCard()">Continue</button>
+    </div>
 
+    <div class="card">
         <p>
             I love you quietly.<br>
             Even when you pull away.<br>
-            Even when you’re unsure.<br>
-            Even when you don’t feel like choosing me.
+            Even when you’re unsure.
         </p>
+        <button onclick="nextCard()">Next</button>
+    </div>
 
+    <div class="card">
         <p>
             My feelings don’t depend on how you respond.<br>
             They exist because they’re real.
         </p>
+        <button onclick="nextCard()">Next</button>
+    </div>
 
+    <div class="card">
         <p>
             Even if you don’t always like me,<br>
             my love doesn’t turn into pressure.
         </p>
+        <button onclick="nextCard()">Next</button>
+    </div>
 
-        <p class="soft">
-            You don’t owe me anything for being loved.
-            <br><br>
+    <div class="card">
+        <p>
+            You don’t owe me anything for being loved.<br><br>
             Happy Valentine’s Day.
         </p>
     </div>
+
+    <script>
+        let current = 0;
+        const cards = document.querySelectorAll('.card');
+
+        function nextCard() {
+            cards[current].classList.remove('active');
+            current++;
+            cards[current].classList.add('active');
+        }
+    </script>
+
 </body>
 </html>

@@ -1,108 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>This Valentine</title>
-    <style>
-        body {
-            margin: 0;
-            background-color: #fdf2f4;
-            font-family: Georgia, serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<meta charset="UTF-8">
+<title>This Valentine</title>
 
-        .card {
-            background: white;
-            width: 90%;
-            max-width: 600px;
-            padding: 40px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            display: none;
-        }
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #fde2e4, #fff1f3);
+    font-family: "Georgia", serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .card.active {
-            display: block;
-            opacity: 1;
-        }
+.card {
+    background: white;
+    max-width: 600px;
+    width: 90%;
+    padding: 45px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    display: none;
+}
 
-        p {
-            font-size: 18px;
-            line-height: 1.8;
-        }
+.card.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        button {
-            margin-top: 30px;
-            padding: 10px 24px;
-            font-size: 16px;
-            border: none;
-            border-radius: 20px;
-            background-color: #e8a1a8;
-            color: white;
-            cursor: pointer;
-        }
+p {
+    font-size: 19px;
+    line-height: 1.9;
+    color: #333;
+}
 
-        button:hover {
-            background-color: #d98a92;
-        }
-    </style>
+.small {
+    font-size: 16px;
+    color: #666;
+}
+
+button {
+    margin-top: 35px;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 25px;
+    background-color: #e88b94;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #d67680;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="card active">
-        <p><strong>This Valentine,</strong></p>
-        <p>I’m not here to ask for anything.</p>
-        <button onclick="nextCard()">Continue</button>
-    </div>
+<div class="card active">
+    <p><strong>This Valentine,</strong></p>
+    <p>I’m not here to ask for anything.</p>
+    <button onclick="next()">Continue</button>
+</div>
 
-    <div class="card">
-        <p>
-            I love you quietly.<br>
-            Even when you pull away.<br>
-            Even when you’re unsure.
-        </p>
-        <button onclick="nextCard()">Next</button>
-    </div>
+<div class="card">
+    <p>
+        I love you quietly.<br>
+        Even when you’re distant.<br>
+        Even when you’re unsure.
+    </p>
+    <button onclick="next()">Go on</button>
+</div>
 
-    <div class="card">
-        <p>
-            My feelings don’t depend on how you respond.<br>
-            They exist because they’re real.
-        </p>
-        <button onclick="nextCard()">Next</button>
-    </div>
+<div class="card">
+    <p>
+        Sometimes you asked me for space.<br>
+        I listened — not because my love changed,<br>
+        but because I didn’t want it to feel heavy.
+    </p>
+    <button onclick="next()">Next</button>
+</div>
 
-    <div class="card">
-        <p>
-            Even if you don’t always like me,<br>
-            my love doesn’t turn into pressure.
-        </p>
-        <button onclick="nextCard()">Next</button>
-    </div>
+<div class="card">
+    <p>
+        Even if you don’t always like me,<br>
+        my feelings don’t turn into pressure.
+    </p>
 
-    <div class="card">
-        <p>
-            You don’t owe me anything for being loved.<br><br>
-            Happy Valentine’s Day.
-        </p>
-    </div>
+    <p class="small">
+        This isn’t sacrifice.<br>
+        It’s just how I love.
+    </p>
 
-    <script>
-        let current = 0;
-        const cards = document.querySelectorAll('.card');
+    <button onclick="next()">One last thing</button>
+</div>
 
-        function nextCard() {
-            cards[current].classList.remove('active');
-            current++;
-            cards[current].classList.add('active');
-        }
-    </script>
+<div class="card">
+    <p>
+        You don’t owe me anything<br>
+        for being loved.
+    </p>
+
+    <p class="small">
+        Happy Valentine’s Day.
+    </p>
+</div>
+
+<script>
+let index = 0;
+const cards = document.querySelectorAll('.card');
+
+function next() {
+    cards[index].classList.remove('active');
+    index++;
+    cards[index].classList.add('active');
+}
+</script>
 
 </body>
 </html>

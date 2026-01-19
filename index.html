@@ -87,8 +87,11 @@ button.back { background-color: #f4c2c6; }
 button.back:hover { background-color: #e0aeb3; }
 
 /* Hidden message style */
-.hidden-msg { display: none; color: #d67680; margin-top: 10px; cursor: pointer; }
+.hidden-msg { display: none; color: #d67680; margin-top: 10px; }
 .hidden-msg.show { display: block; }
+
+/* Clickable word */
+.clickable { color: #d67680; text-decoration: underline; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -104,17 +107,21 @@ button.back:hover { background-color: #e0aeb3; }
 
 <!-- Card 2: Memory -->
 <div class="card">
-    <p>Today I thought about you when the morning sunlight hit my window.</p>
-    <small>(Click the word "sunlight" to see a hidden thought)</small>
-    <p class="hidden-msg" onclick="this.classList.toggle('show')">Even the smallest things make me think of you ❤️</p>
+    <p>
+        Today I thought about you when the 
+        <span class="clickable" onclick="toggleMsg('msg1')">sunlight</span> hit my window.
+    </p>
+    <p id="msg1" class="hidden-msg">Even the smallest things make me think of you ❤️</p>
     <button class="back" onclick="back()">Back</button>
     <button onclick="next()">Next</button>
 </div>
 
 <!-- Card 3: Memory -->
 <div class="card">
-    <p>I remembered your smile when you weren’t looking, [Her Name].</p>
-    <p class="hidden-msg" onclick="this.classList.toggle('show')">It’s a smile I keep in my pocket, always 🌸</p>
+    <p>
+        I remembered your <span class="clickable" onclick="toggleMsg('msg2')">smile</span> when you weren’t looking, [Her Name].
+    </p>
+    <p id="msg2" class="hidden-msg">It’s a smile I keep in my pocket, always 🌸</p>
     <button class="back" onclick="back()">Back</button>
     <button onclick="next()">Next</button>
 </div>
@@ -178,6 +185,12 @@ function showChoice(option){
         choiceText.textContent = "When you’re distant, I miss you quietly but I still smile thinking of you 💛";
     }
     choiceText.classList.add('show');
+}
+
+/* Toggle hidden messages on click */
+function toggleMsg(id){
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('show');
 }
 </script>
 

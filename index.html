@@ -47,7 +47,7 @@ p {
 }
 
 button {
-    margin-top: 35px;
+    margin: 20px 10px 0 10px;
     padding: 12px 28px;
     border: none;
     border-radius: 25px;
@@ -60,6 +60,14 @@ button {
 
 button:hover {
     background-color: #d67680;
+}
+
+button.back {
+    background-color: #f4c2c6;
+}
+
+button.back:hover {
+    background-color: #e0aeb3;
 }
 </style>
 </head>
@@ -78,6 +86,7 @@ button:hover {
         Even when you’re distant.<br>
         Even when you’re unsure.
     </p>
+    <button class="back" onclick="back()">Back</button>
     <button onclick="next()">Go on</button>
 </div>
 
@@ -87,6 +96,7 @@ button:hover {
         I listened — not because my love changed,<br>
         but because I didn’t want it to feel heavy.
     </p>
+    <button class="back" onclick="back()">Back</button>
     <button onclick="next()">Next</button>
 </div>
 
@@ -101,6 +111,7 @@ button:hover {
         It’s just how I love.
     </p>
 
+    <button class="back" onclick="back()">Back</button>
     <button onclick="next()">One last thing</button>
 </div>
 
@@ -113,6 +124,8 @@ button:hover {
     <p class="small">
         Happy Valentine’s Day.
     </p>
+
+    <button class="back" onclick="back()">Back</button>
 </div>
 
 <script>
@@ -120,9 +133,19 @@ let index = 0;
 const cards = document.querySelectorAll('.card');
 
 function next() {
-    cards[index].classList.remove('active');
-    index++;
-    cards[index].classList.add('active');
+    if(index < cards.length - 1){
+        cards[index].classList.remove('active');
+        index++;
+        cards[index].classList.add('active');
+    }
+}
+
+function back() {
+    if(index > 0){
+        cards[index].classList.remove('active');
+        index--;
+        cards[index].classList.add('active');
+    }
 }
 </script>
 

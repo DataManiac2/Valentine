@@ -1,190 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>A Book for You</title>
+  <meta charset="UTF-8" />
+  <title>A Journal That Never Ends</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Handwritten font -->
-<link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Georgia", serif;
+      background: #fff7f9;
+      color: #3b2f2f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: #e8dfd2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Handlee', cursive;
-}
+    .book {
+      width: 90%;
+      max-width: 420px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
 
-.book {
-  width: 720px;
-  height: 460px;
-  position: relative;
-  perspective: 2000px;
-}
+    .page {
+      display: none;
+    }
 
-/* Page styling */
-.page {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background:
-    linear-gradient(0deg, rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
-    url("https://www.transparenttextures.com/patterns/paper-fibers.png");
-  background-size: cover;
-  top: 0;
-  left: 0;
-  padding: 55px;
-  box-sizing: border-box;
-  transform-origin: left;
-  transform-style: preserve-3d;
-  transition: transform 1s ease;
-  box-shadow: inset -2px 0 8px rgba(0,0,0,0.08);
-}
+    .page.active {
+      display: block;
+    }
 
-#p1 { z-index: 5; }
-#p2 { z-index: 4; }
-#p3 { z-index: 3; }
-#p4 { z-index: 2; }
-#p5 { z-index: 1; }
+    h1, h2 {
+      font-weight: normal;
+      margin-bottom: 16px;
+    }
 
-.page p {
-  font-size: 22px;
-  line-height: 1.9;
-  color: #3b2f2f;
-}
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
 
-.flipped {
-  transform: rotateY(-180deg);
-}
+    button {
+      margin-top: 25px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 20px;
+      background: #f3b5c6;
+      color: #3b2f2f;
+      font-size: 14px;
+      cursor: pointer;
+    }
 
-/* Navigation */
-.nav {
-  position: absolute;
-  bottom: 25px;
-  right: 35px;
-  cursor: pointer;
-  color: #6b5b4b;
-}
+    button:hover {
+      background: #f0a6ba;
+    }
 
-.nav.left {
-  left: 35px;
-  right: auto;
-}
+    .fade-text {
+      opacity: 0;
+      animation: fadeIn 4s forwards;
+      animation-delay: 2s;
+    }
 
-/* Interactive words */
-.word {
-  color: #a04c4c;
-  cursor: pointer;
-  border-bottom: 1px dotted #a04c4c;
-}
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
 
-.hidden {
-  display: none;
-  margin-top: 15px;
-  color: #8b3f3f;
-}
+    .hidden {
+      display: none;
+    }
 
-.show {
-  display: block;
-}
-
-/* Typing ending */
-#typing {
-  font-size: 24px;
-  margin-top: 40px;
-  white-space: pre-wrap;
-}
-</style>
+    .lock {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-top: 15px;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="book">
+  <div class="book">
 
-  <div class="page" id="p1">
-    <p><strong>A small book for you</strong></p>
-    <p>
-      I didn’t want to send words that could disappear.<br>
-      So I made something that stays.
-    </p>
-    <div class="nav" onclick="flip(1)">Turn page →</div>
+    <!-- PAGE 1 -->
+    <div class="page active" id="page1">
+      <h1>For You</h1>
+      <p>
+This is not a gift.
+This is not a promise.
+This is just something
+that existed because you do.
+      </p>
+      <button onclick="goTo('page2')">Next</button>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page" id="page2">
+      <h2>Somewhere Along the Way</h2>
+      <p>
+I realised love doesn’t have to be loud.
+It doesn’t have to ask.
+It just stays.
+      </p>
+      <button onclick="goTo('page3')">Next</button>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page" id="page3">
+      <h2>The Way I Feel</h2>
+      <p>
+Even when you pull away,
+even when you need space,
+even when you are quiet,
+my care for you does not change.
+      </p>
+      <button onclick="goTo('page4')">Next</button>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="page" id="page4">
+      <h2>No Expectations</h2>
+      <p>
+This is not me asking for anything.
+Not time.
+Not reassurance.
+Not certainty.
+Just honesty.
+      </p>
+      <button onclick="goTo('page5')">Next</button>
+    </div>
+
+    <!-- PAGE 5 -->
+    <div class="page" id="page5">
+      <h2>What You Mean To Me</h2>
+      <p>
+You are not my whole life.
+But you are the part
+that makes life softer.
+      </p>
+      <button onclick="goToBlankPage()">Next</button>
+    </div>
+
+    <!-- BLANK PAGE -->
+    <div class="page" id="blankPage">
+      <h2>Pages That Will Never Be Enough</h2>
+      <p class="fade-text">
+Some pages are left empty,
+not because there is nothing to say,
+but because words fall short.
+      </p>
+      <button onclick="goToLockedPage()">Next</button>
+    </div>
+
+    <!-- LOCKED PAGE -->
+    <div class="page" id="lockedPage">
+      <h2>This Page Is Not Ready Yet</h2>
+      <p id="lockMessage"></p>
+      <div class="lock" id="lockNote"></div>
+      <button id="unlockBtn" class="hidden" onclick="unlockPage()">Open</button>
+    </div>
+
   </div>
 
-  <div class="page" id="p2">
-    <p>
-      I think of you when the 
-      <span class="word" onclick="toggle('m1')">sunlight</span>
-      enters quietly.
-    </p>
-    <p id="m1" class="hidden">
-      Some warmth doesn’t need to be noticed to be felt.
-    </p>
-    <div class="nav left" onclick="unflip(1)">← Back</div>
-    <div class="nav" onclick="flip(2)">Turn page →</div>
-  </div>
+  <script>
+    function goTo(pageId) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById(pageId).classList.add("active");
+    }
 
-  <div class="page" id="p3">
-    <p>
-      Your <span class="word" onclick="toggle('m2')">presence</span>
-      changes ordinary moments.
-    </p>
-    <p id="m2" class="hidden">
-      Even silence feels kinder.
-    </p>
-    <div class="nav left" onclick="unflip(2)">← Back</div>
-    <div class="nav" onclick="flip(3)">Turn page →</div>
-  </div>
+    function goToBlankPage() {
+      goTo("blankPage");
+    }
 
-  <div class="page" id="p4">
-    <p>
-      I don’t need anything from you.<br>
-      I don’t expect anything either.
-    </p>
-    <p>
-      This is simply where my heart stays.
-    </p>
-    <div class="nav left" onclick="unflip(3)">← Back</div>
-    <div class="nav" onclick="flip(4); startTyping()">Turn page →</div>
-  </div>
+    function goToLockedPage() {
+      goTo("lockedPage");
 
-  <div class="page" id="p5">
-    <p id="typing"></p>
-    <div class="nav left" onclick="unflip(4)">← Back</div>
-  </div>
+      const unlockDate = new Date("2026-02-14"); // change if you want
+      const today = new Date();
 
-</div>
+      const message = document.getElementById("lockMessage");
+      const button = document.getElementById("unlockBtn");
+      const note = document.getElementById("lockNote");
 
-<script>
-function flip(n) {
-  document.getElementById("p" + n).classList.add("flipped");
-}
+      if (today >= unlockDate) {
+        message.innerText = "This page waited for the right moment.";
+        button.classList.remove("hidden");
+        note.innerText = "";
+      } else {
+        message.innerText =
+          "This page is locked.\n\n" +
+          "Not because it is secret,\n" +
+          "but because some feelings\n" +
+          "need more time to exist.";
+        note.innerText = "Some things are meant to remain unfinished.";
+      }
+    }
 
-function unflip(n) {
-  document.getElementById("p" + n).classList.remove("flipped");
-}
-
-function toggle(id) {
-  document.getElementById(id).classList.toggle("show");
-}
-
-/* Typing effect */
-const text =
-"This love is never going to end.\n\nNot today.\nNot tomorrow.\nNot ever.";
-
-let i = 0;
-function startTyping() {
-  const target = document.getElementById("typing");
-  if (target.innerHTML.length === 0) {
-    const interval = setInterval(() => {
-      target.innerHTML += text.charAt(i);
-      i++;
-      if (i >= text.length) clearInterval(interval);
-    }, 60);
-  }
-}
-</script>
+    function unlockPage() {
+      document.getElementById("lockMessage").innerText =
+        "If I ever finish this journal,\n" +
+        "it would mean you stopped being special.\n\n" +
+        "And that will never happen.\n\n" +
+        "Not in this life.\n" +
+        "Not in any life.\n\n" +
+        "So this book remains incomplete,\n" +
+        "because loving you has no ending.";
+      document.getElementById("unlockBtn").classList.add("hidden");
+      document.getElementById("lockNote").innerText = "";
+    }
+  </script>
 
 </body>
 </html>

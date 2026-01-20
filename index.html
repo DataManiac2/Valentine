@@ -3,32 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <title>A Journal That Never Ends</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#fde2e8">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;400&display=swap');
 
-body {
+html, body {
   margin: 0;
-  height: 100vh;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
   background: radial-gradient(circle at top, #fff0f4, #fde2e8);
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Inter', sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .book {
-  width: 92%;
+  width: 100%;
+  height: 100%;
   max-width: 430px;
   background: linear-gradient(#fffdfc, #fff7f9);
-  padding: 32px 28px;
-  border-radius: 18px;
-  box-shadow:
-    0 25px 50px rgba(0,0,0,0.15),
-    inset 0 0 0 1px rgba(255,255,255,0.6);
+  padding: env(safe-area-inset-top) 24px env(safe-area-inset-bottom);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
 }
 
 .book::before {
@@ -37,25 +46,41 @@ body {
   inset: 0;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(0,0,0,0.02),
-    rgba(0,0,0,0.02) 1px,
+    rgba(0,0,0,0.025),
+    rgba(0,0,0,0.025) 1px,
     transparent 1px,
-    transparent 6px
+    transparent 7px
   );
   pointer-events: none;
 }
 
 .page {
+  position: absolute;
+  inset: 0;
+  padding: 0 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
   opacity: 0;
-  transform: translateX(40px);
-  transition: all 0.6s ease;
-  display: none;
+  transform: translateX(60px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .page.active {
-  display: block;
   opacity: 1;
   transform: translateX(0);
+  z-index: 2;
+}
+
+.page.shadow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 10px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.15), transparent);
 }
 
 h1, h2 {
@@ -66,7 +91,7 @@ h1, h2 {
 }
 
 p {
-  font-size: 15.5px;
+  font-size: 16px;
   line-height: 1.75;
   color: #4a3a3f;
   white-space: pre-line;
@@ -74,25 +99,19 @@ p {
 
 button {
   margin-top: 28px;
-  padding: 9px 20px;
+  padding: 10px 22px;
   border-radius: 22px;
   border: none;
-  background: rgba(243,181,198,0.8);
+  background: rgba(243,181,198,0.9);
   color: #3a2b2f;
   font-size: 13px;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  background: rgba(243,181,198,1);
-  transform: translateY(-1px);
 }
 
 .fade-text {
   opacity: 0;
   animation: fadeIn 4s forwards;
-  animation-delay: 1.8s;
+  animation-delay: 1.5s;
 }
 
 @keyframes fadeIn {
@@ -111,9 +130,9 @@ button:hover {
 
 <body>
 
-<div class="book">
+<div class="book" id="book">
 
-  <div class="page active" id="page1">
+  <div class="page active" id="p1">
     <h1>For You</h1>
     <p>
 This is not a gift.
@@ -122,119 +141,142 @@ This is not a promise.
 This exists
 only because you do.
     </p>
-    <button onclick="goTo('page2')">Turn the page</button>
   </div>
 
-  <div class="page" id="page2">
+  <div class="page" id="p2">
     <h2>Somewhere Along the Way</h2>
     <p>
-I learned that love
-does not need to be loud.
-
+Love does not need to be loud.
 Sometimes,
 it just stays.
     </p>
-    <button onclick="goTo('page3')">Next</button>
   </div>
 
-  <div class="page" id="page3">
+  <div class="page" id="p3">
     <h2>The Way I Feel</h2>
     <p>
 Even when you pull away,
 even when you need space,
-even when words disappear,
-
-my care does not.
+my care remains unchanged.
     </p>
-    <button onclick="goTo('page4')">Next</button>
   </div>
 
-  <div class="page" id="page4">
+  <div class="page" id="p4">
     <h2>No Expectations</h2>
     <p>
 This is not me asking.
-
-Not for certainty.
-Not for reassurance.
-Not even for time.
-
-Only honesty.
+Only standing here,
+honestly.
     </p>
-    <button onclick="goTo('page5')">Next</button>
   </div>
 
-  <div class="page" id="page5">
+  <div class="page" id="p5">
     <h2>What You Mean To Me</h2>
     <p>
 You are not my whole life.
-
 But you are the part
 that makes life softer.
     </p>
-    <button onclick="goTo('blankPage')">Next</button>
   </div>
 
-  <div class="page" id="blankPage">
+  <div class="page" id="p6">
     <h2>Pages That Will Never Be Enough</h2>
     <p class="fade-text">
 Some pages stay empty,
 not because there is nothing to say,
-
 but because words fall short.
     </p>
-    <button onclick="goToLockedPage()">Next</button>
   </div>
 
-  <div class="page" id="lockedPage">
+  <div class="page" id="p7">
     <h2>This Page Is Not Ready Yet</h2>
-    <p id="lockMessage"></p>
+    <p id="lockText"></p>
     <div class="lock-note" id="lockNote"></div>
-    <button id="unlockBtn" class="hidden" onclick="unlockPage()">Open</button>
+    <button id="unlockBtn" class="hidden">Open</button>
+  </div>
+
+  <div class="page" id="p8">
+    <h2>The Book Closes</h2>
+    <p>
+This journal ends here.
+
+Not because love ends,
+but because it never does.
+    </p>
   </div>
 
 </div>
 
+<audio id="flipSound" preload="auto">
+  <source src="https://assets.mixkit.co/sfx/preview/mixkit-page-turn-1104.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-function goTo(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+const pages = Array.from(document.querySelectorAll('.page'));
+let index = 0;
+const flip = document.getElementById("flipSound");
+
+function showPage(i) {
+  pages.forEach(p => p.classList.remove('active','shadow'));
+  pages[i].classList.add('active','shadow');
+  flip.volume = 0.2;
+  flip.play().catch(()=>{});
 }
 
-function goToLockedPage() {
-  goTo('lockedPage');
-
-  const unlockDate = new Date("2026-02-14");
-  const today = new Date();
-  const msg = document.getElementById("lockMessage");
-  const btn = document.getElementById("unlockBtn");
-  const note = document.getElementById("lockNote");
-
-  if (today >= unlockDate) {
-    msg.innerText = "This page waited for the right moment.";
-    btn.classList.remove("hidden");
-    note.innerText = "";
-  } else {
-    msg.innerText =
-      "This page is locked.\n\n" +
-      "Not because it is hidden,\n" +
-      "but because some feelings\n" +
-      "need time to breathe.";
-    note.innerText = "Some love stories are never meant to finish.";
+function next() {
+  if (index < pages.length - 1) {
+    index++;
+    if (pages[index].id === "p7") handleLock();
+    showPage(index);
   }
 }
 
-function unlockPage() {
-  document.getElementById("lockMessage").innerText =
-    "If I ever finished this journal,\n" +
-    "it would mean you stopped being special.\n\n" +
-    "That will never happen.\n\n" +
-    "Not in this life.\n" +
-    "Not in any life.\n\n" +
-    "So this book remains unfinished,\n" +
-    "because loving you has no end.";
-  document.getElementById("unlockBtn").classList.add("hidden");
-  document.getElementById("lockNote").innerText = "";
+function prev() {
+  if (index > 0) {
+    index--;
+    showPage(index);
+  }
 }
+
+function handleLock() {
+  const unlockDate = new Date("2026-02-14");
+  const now = new Date();
+  const text = document.getElementById("lockText");
+  const btn = document.getElementById("unlockBtn");
+  const note = document.getElementById("lockNote");
+
+  if (now >= unlockDate) {
+    text.innerText = "This page waited for the right moment.";
+    btn.classList.remove("hidden");
+    btn.onclick = () => {
+      text.innerText =
+        "If I ever finished this journal,\n" +
+        "it would mean you stopped being special.\n\n" +
+        "That will never happen.\n\n" +
+        "So this book remains unfinished,\n" +
+        "because loving you has no end.";
+      btn.classList.add("hidden");
+    };
+    note.innerText = "";
+  } else {
+    text.innerText =
+      "This page is locked.\n\n" +
+      "Some feelings need time\n" +
+      "to exist fully.";
+    note.innerText = "Some love stories never finish.";
+  }
+}
+
+/* Swipe handling */
+let startX = 0;
+document.getElementById("book").addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+document.getElementById("book").addEventListener("touchend", e => {
+  let endX = e.changedTouches[0].clientX;
+  if (startX - endX > 50) next();
+  if (endX - startX > 50) prev();
+});
 </script>
 
 </body>

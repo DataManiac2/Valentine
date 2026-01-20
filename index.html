@@ -2,281 +2,182 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>A Journal That Never Ends</title>
+<title>For You</title>
 
-<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#fde2e8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Patrick+Hand&display=swap');
 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background: #f6f2ee;
   overflow: hidden;
 }
 
 body {
-  background: radial-gradient(circle at top, #fff0f4, #fde2e8);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Inter', sans-serif;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .book {
   width: 100%;
   height: 100%;
-  max-width: 430px;
-  background: linear-gradient(#fffdfc, #fff7f9);
-  padding: env(safe-area-inset-top) 24px env(safe-area-inset-bottom);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  max-width: 420px;
+  background: #fbf9f6;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  padding: 40px 26px;
+  box-sizing: border-box;
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-}
-
-.book::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.025),
-    rgba(0,0,0,0.025) 1px,
-    transparent 1px,
-    transparent 7px
-  );
-  pointer-events: none;
 }
 
 .page {
   position: absolute;
-  inset: 0;
-  padding: 0 26px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
+  inset: 40px 26px;
   opacity: 0;
-  transform: translateX(60px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.8s ease;
+  font-family: 'Cormorant Garamond', serif;
+  color: #2e2a27;
+  line-height: 1.8;
 }
 
 .page.active {
   opacity: 1;
-  transform: translateX(0);
-  z-index: 2;
-}
-
-.page.shadow::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: -10px;
-  width: 10px;
-  height: 100%;
-  background: linear-gradient(to right, rgba(0,0,0,0.15), transparent);
 }
 
 h1, h2 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 400;
-  margin-bottom: 18px;
-  color: #3a2b2f;
+  font-weight: 500;
+  margin-bottom: 20px;
 }
 
-p {
-  font-size: 16px;
-  line-height: 1.75;
-  color: #4a3a3f;
-  white-space: pre-line;
+.hand {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 17px;
 }
 
-button {
-  margin-top: 28px;
-  padding: 10px 22px;
-  border-radius: 22px;
-  border: none;
-  background: rgba(243,181,198,0.9);
-  color: #3a2b2f;
-  font-size: 13px;
+.next {
+  position: absolute;
+  bottom: 30px;
+  right: 26px;
+  font-size: 14px;
+  opacity: 0.6;
   cursor: pointer;
 }
 
-.fade-text {
-  opacity: 0;
-  animation: fadeIn 4s forwards;
-  animation-delay: 1.5s;
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-.hidden { display: none; }
-
-.lock-note {
-  font-size: 13px;
-  opacity: 0.7;
-  margin-top: 14px;
+.next:hover {
+  opacity: 1;
 }
 </style>
 </head>
 
 <body>
 
-<div class="book" id="book">
+<div class="book">
 
-  <div class="page active" id="p1">
-    <h1>For You</h1>
+  <div class="page active">
+    <h1>For you</h1>
     <p>
-This is not a gift.
-This is not a promise.
+I didn’t plan this.
 
-This exists
-only because you do.
+I just started writing  
+and somehow you were  
+already here.
     </p>
+    <div class="next" onclick="nextPage()">turn</div>
   </div>
 
-  <div class="page" id="p2">
-    <h2>Somewhere Along the Way</h2>
+  <div class="page">
     <p>
-Love does not need to be loud.
-Sometimes,
-it just stays.
+I don’t know how to explain  
+what you feel like to me.
+
+Some days it’s calm.  
+Some days confusing.  
+Some days very quiet.
     </p>
+    <div class="next" onclick="nextPage()">turn</div>
   </div>
 
-  <div class="page" id="p3">
-    <h2>The Way I Feel</h2>
+  <div class="page">
     <p>
-Even when you pull away,
-even when you need space,
-my care remains unchanged.
+I’ve learned something though.
+
+Love doesn’t always look like effort.  
+Sometimes it looks like restraint.
     </p>
+    <div class="next" onclick="nextPage()">turn</div>
   </div>
 
-  <div class="page" id="p4">
-    <h2>No Expectations</h2>
+  <div class="page">
     <p>
-This is not me asking.
-Only standing here,
-honestly.
+So if I’ve been quieter lately,  
+it isn’t absence.
+
+It’s me learning  
+how to stay without holding too tight.
     </p>
+    <div class="next" onclick="nextPage()">turn</div>
   </div>
 
-  <div class="page" id="p5">
-    <h2>What You Mean To Me</h2>
+  <div class="page">
     <p>
-You are not my whole life.
-But you are the part
-that makes life softer.
+You once said  
+love is only a part of life.
+
+I think you were right.
+
+But you are the part  
+that makes the rest make sense.
     </p>
+    <div class="next" onclick="nextPage()">turn</div>
   </div>
 
-  <div class="page" id="p6">
-    <h2>Pages That Will Never Be Enough</h2>
-    <p class="fade-text">
-Some pages stay empty,
-not because there is nothing to say,
-but because words fall short.
+  <div class="page">
+    <p class="hand">
+Some pages don’t get written.
+
+Not because they matter less,  
+but because they matter too much.
     </p>
+    <div class="next" onclick="nextPage()">turn</div>
   </div>
 
-  <div class="page" id="p7">
-    <h2>This Page Is Not Ready Yet</h2>
-    <p id="lockText"></p>
-    <div class="lock-note" id="lockNote"></div>
-    <button id="unlockBtn" class="hidden">Open</button>
-  </div>
-
-  <div class="page" id="p8">
-    <h2>The Book Closes</h2>
+  <div class="page">
     <p>
-This journal ends here.
+I could keep writing.
 
-Not because love ends,
-but because it never does.
+In this life.  
+In another one.  
+In ways that still wouldn’t finish you.
+    </p>
+    <div class="next" onclick="nextPage()">turn</div>
+  </div>
+
+  <div class="page">
+    <p class="hand">
+So I’ll stop here.
+
+Not because this ends,  
+but because it doesn’t.
     </p>
   </div>
 
 </div>
 
-<audio id="flipSound" preload="auto">
-  <source src="https://assets.mixkit.co/sfx/preview/mixkit-page-turn-1104.mp3" type="audio/mpeg">
-</audio>
-
 <script>
-const pages = Array.from(document.querySelectorAll('.page'));
-let index = 0;
-const flip = document.getElementById("flipSound");
+let pages = document.querySelectorAll('.page');
+let current = 0;
 
-function showPage(i) {
-  pages.forEach(p => p.classList.remove('active','shadow'));
-  pages[i].classList.add('active','shadow');
-  flip.volume = 0.2;
-  flip.play().catch(()=>{});
-}
-
-function next() {
-  if (index < pages.length - 1) {
-    index++;
-    if (pages[index].id === "p7") handleLock();
-    showPage(index);
+function nextPage() {
+  if (current < pages.length - 1) {
+    pages[current].classList.remove('active');
+    current++;
+    pages[current].classList.add('active');
   }
 }
-
-function prev() {
-  if (index > 0) {
-    index--;
-    showPage(index);
-  }
-}
-
-function handleLock() {
-  const unlockDate = new Date("2026-02-14");
-  const now = new Date();
-  const text = document.getElementById("lockText");
-  const btn = document.getElementById("unlockBtn");
-  const note = document.getElementById("lockNote");
-
-  if (now >= unlockDate) {
-    text.innerText = "This page waited for the right moment.";
-    btn.classList.remove("hidden");
-    btn.onclick = () => {
-      text.innerText =
-        "If I ever finished this journal,\n" +
-        "it would mean you stopped being special.\n\n" +
-        "That will never happen.\n\n" +
-        "So this book remains unfinished,\n" +
-        "because loving you has no end.";
-      btn.classList.add("hidden");
-    };
-    note.innerText = "";
-  } else {
-    text.innerText =
-      "This page is locked.\n\n" +
-      "Some feelings need time\n" +
-      "to exist fully.";
-    note.innerText = "Some love stories never finish.";
-  }
-}
-
-/* Swipe handling */
-let startX = 0;
-document.getElementById("book").addEventListener("touchstart", e => {
-  startX = e.touches[0].clientX;
-});
-document.getElementById("book").addEventListener("touchend", e => {
-  let endX = e.changedTouches[0].clientX;
-  if (startX - endX > 50) next();
-  if (endX - startX > 50) prev();
-});
 </script>
 
 </body>

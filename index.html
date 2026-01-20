@@ -2,35 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>A Small Book</title>
+<title>A Book That Is Not Finished</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* ===== GLOBAL ===== */
 body {
   margin: 0;
-  background: #e8e3da;
-  font-family: Georgia, serif;
+  background: radial-gradient(circle at top, #efe9df, #d9d2c6);
+  font-family: "Georgia", serif;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  overflow: hidden;
 }
 
+/* ===== FLOATING MEMORY PARTICLES ===== */
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 50%;
+  animation: float 18s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(110vh); }
+  to { transform: translateY(-20vh); }
+}
+
+/* ===== BOOK ===== */
 .book {
-  width: 90%;
-  max-width: 700px;
-  height: 85vh;
-  background: #fdfbf7;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-  padding: 40px;
+  width: 92%;
+  max-width: 720px;
+  height: 88vh;
+  background: linear-gradient(to right, #fdfbf7 0%, #faf6f0 100%);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  padding: 45px 50px;
   position: relative;
   overflow: hidden;
 }
 
+/* ===== PAGE ===== */
 .page {
   display: none;
   height: 100%;
-  animation: fadeIn 0.6s ease;
+  animation: fadeIn 0.7s ease;
 }
 
 .page.active {
@@ -39,26 +58,50 @@ body {
 
 h1 {
   font-weight: normal;
+  margin-bottom: 30px;
 }
 
 p {
   font-size: 18px;
-  line-height: 1.7;
+  line-height: 1.75;
+  margin-bottom: 22px;
 }
 
-.note {
-  margin-top: 20px;
+/* ===== CHAPTER BREAK ===== */
+.divider {
+  text-align: center;
+  opacity: 0.4;
+  margin: 30px 0;
+  letter-spacing: 4px;
+}
+
+/* ===== MARGIN NOTE ===== */
+.margin {
+  position: absolute;
+  right: 20px;
+  top: 120px;
+  width: 120px;
+  font-size: 12px;
+  opacity: 0.45;
   font-style: italic;
-  opacity: 0.6;
 }
 
+/* ===== END NOTE ===== */
+.end-note {
+  margin-top: 40px;
+  font-style: italic;
+  opacity: 0.65;
+}
+
+/* ===== CONTROLS ===== */
 .controls {
   position: absolute;
-  bottom: 25px;
-  left: 40px;
-  right: 40px;
+  bottom: 30px;
+  left: 50px;
+  right: 50px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 14px;
 }
 
@@ -75,21 +118,25 @@ button:hover {
 }
 
 .page-number {
-  text-align: center;
   opacity: 0.4;
 }
 
+/* ===== ANIMATION ===== */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ===== RESPONSIVE ===== */
 @media (max-width: 600px) {
   .book {
-    padding: 25px;
+    padding: 30px;
   }
   p {
     font-size: 16px;
+  }
+  .margin {
+    display: none;
   }
 }
 </style>
@@ -97,83 +144,112 @@ button:hover {
 
 <body>
 
+<!-- PARTICLES -->
+<div class="particle" style="left:10%; animation-delay:0s"></div>
+<div class="particle" style="left:30%; animation-delay:6s"></div>
+<div class="particle" style="left:55%; animation-delay:12s"></div>
+<div class="particle" style="left:80%; animation-delay:3s"></div>
+
 <div class="book">
 
   <!-- PAGE 1 -->
   <div class="page active">
     <h1>For You</h1>
     <p>
-This was never meant to be perfect.<br>
-It was only meant to be honest.
+This is not a grand gesture.<br>
+It is a quiet one.
     </p>
-    <div class="note">
-      Some things start quietly.
-    </div>
+    <div class="divider">✦ ✦ ✦</div>
+    <p>
+Something that exists without asking
+for anything in return.
+    </p>
+    <div class="margin">some things begin before we name them</div>
   </div>
 
   <!-- PAGE 2 -->
   <div class="page">
     <p>
-I don’t always know how to match
-what you feel or when you feel it.
+I don’t always understand your silences.
     </p>
     <p>
-But I notice you.
-Always.
+But I have never ignored them.
+    </p>
+    <div class="divider">✦ ✦ ✦</div>
+    <p>
+I am learning that love is not
+constant presence,
+but steady respect.
     </p>
   </div>
 
   <!-- PAGE 3 -->
   <div class="page">
     <p>
-I am learning that love doesn’t mean
-being loud or constant.
+You once said that knowing someone
+takes time.
     </p>
     <p>
-Sometimes it just means staying.
+I didn’t argue.
+    </p>
+    <div class="divider">✦ ✦ ✦</div>
+    <p>
+Because rushing has never created
+anything worth keeping.
     </p>
   </div>
 
   <!-- PAGE 4 -->
   <div class="page">
     <p>
-You once said time matters.
-That knowing someone takes time.
+There are versions of you
+I may never fully see.
     </p>
     <p>
-I believed you.
-I still do.
+That does not scare me.
+    </p>
+    <div class="divider">✦ ✦ ✦</div>
+    <p>
+Love does not require possession
+to be real.
     </p>
   </div>
 
   <!-- PAGE 5 -->
   <div class="page">
     <p>
-There are pages I haven’t written yet.
-Not because I don’t feel enough.
+This was meant to be a journal.
     </p>
     <p>
-But because you are not something
-that can be finished.
+A journey.
+    </p>
+    <div class="divider">✦ ✦ ✦</div>
+    <p>
+But every time I try to complete it,
+you grow beyond the page.
     </p>
   </div>
 
-  <!-- PAGE 6 (ENDING) -->
+  <!-- PAGE 6 -->
   <div class="page">
     <p>
-If I had all the lives in the world,
-I still wouldn’t be able to complete
-this book.
+Not in this life.
     </p>
     <p>
-Because you are too vast,
-too real,
-too special.
+Not in any life.
+    </p>
+    <div class="divider">✦ ✦ ✦</div>
+    <p>
+I could never finish writing you.
     </p>
     <p>
-This love does not end here.
-Or anywhere.
+And that is how I know
+this love does not end.
     </p>
+    <div class="end-note">
+      This book stops here.<br>
+      What it holds does not.
+    </div>
   </div>
 
   <!-- CONTROLS -->
@@ -186,14 +262,14 @@ Or anywhere.
 </div>
 
 <script>
-const pages = document.querySelectorAll('.page');
+const pages = document.querySelectorAll(".page");
 let current = 0;
 
 function updatePages() {
   pages.forEach((p, i) => {
-    p.classList.toggle('active', i === current);
+    p.classList.toggle("active", i === current);
   });
-  document.getElementById('pageNum').textContent =
+  document.getElementById("pageNum").textContent =
     (current + 1) + " / " + pages.length;
 }
 

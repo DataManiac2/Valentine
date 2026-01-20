@@ -2,63 +2,84 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>A Book That Is Not Finished</title>
+<title>A Love That Breathes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ===== GLOBAL ===== */
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+}
+
+/* ===== BACKGROUND ===== */
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #efe9df, #d9d2c6);
-  font-family: "Georgia", serif;
   height: 100vh;
+  background: linear-gradient(180deg, #f6efe6, #e7ddcf);
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Georgia", serif;
   overflow: hidden;
 }
 
-/* ===== FLOATING MEMORY PARTICLES ===== */
-.particle {
+/* ===== FLOATING LOVE ELEMENTS ===== */
+.symbol {
   position: absolute;
-  width: 6px;
-  height: 6px;
-  background: rgba(255,255,255,0.25);
-  border-radius: 50%;
-  animation: float 18s linear infinite;
+  font-size: 18px;
+  opacity: 0.15;
+  animation: drift 20s linear infinite;
 }
 
-@keyframes float {
-  from { transform: translateY(110vh); }
-  to { transform: translateY(-20vh); }
+@keyframes drift {
+  from { transform: translateY(110vh) rotate(0deg); }
+  to { transform: translateY(-20vh) rotate(360deg); }
 }
 
 /* ===== BOOK ===== */
 .book {
-  width: 92%;
-  max-width: 720px;
+  width: 90%;
+  max-width: 780px;
   height: 88vh;
-  background: linear-gradient(to right, #fdfbf7 0%, #faf6f0 100%);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-  padding: 45px 50px;
+  background: #fdfbf7;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+  border-radius: 6px;
+  padding: 50px;
   position: relative;
   overflow: hidden;
 }
+
+/* ===== FLOWER CORNERS ===== */
+.corner {
+  position: absolute;
+  font-size: 22px;
+  opacity: 0.25;
+}
+
+.top-left { top: 18px; left: 20px; }
+.top-right { top: 18px; right: 20px; }
+.bottom-left { bottom: 18px; left: 20px; }
+.bottom-right { bottom: 18px; right: 20px; }
 
 /* ===== PAGE ===== */
 .page {
   display: none;
   height: 100%;
-  animation: fadeIn 0.7s ease;
+  animation: appear 0.7s ease;
 }
 
 .page.active {
   display: block;
 }
 
+@keyframes appear {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 h1 {
   font-weight: normal;
-  margin-bottom: 30px;
+  margin-bottom: 26px;
 }
 
 p {
@@ -67,28 +88,42 @@ p {
   margin-bottom: 22px;
 }
 
-/* ===== CHAPTER BREAK ===== */
+/* ===== DIVIDER ===== */
 .divider {
   text-align: center;
-  opacity: 0.4;
   margin: 30px 0;
-  letter-spacing: 4px;
+  opacity: 0.4;
+  letter-spacing: 6px;
+}
+
+/* ===== INTERACTIVE HEART ===== */
+.heart {
+  text-align: center;
+  font-size: 26px;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.heart:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
 }
 
 /* ===== MARGIN NOTE ===== */
 .margin {
   position: absolute;
-  right: 20px;
-  top: 120px;
-  width: 120px;
+  right: 30px;
+  top: 140px;
+  width: 140px;
   font-size: 12px;
-  opacity: 0.45;
   font-style: italic;
+  opacity: 0.45;
 }
 
 /* ===== END NOTE ===== */
 .end-note {
-  margin-top: 40px;
+  margin-top: 36px;
   font-style: italic;
   opacity: 0.65;
 }
@@ -121,12 +156,6 @@ button:hover {
   opacity: 0.4;
 }
 
-/* ===== ANIMATION ===== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 600px) {
   .book {
@@ -144,93 +173,96 @@ button:hover {
 
 <body>
 
-<!-- PARTICLES -->
-<div class="particle" style="left:10%; animation-delay:0s"></div>
-<div class="particle" style="left:30%; animation-delay:6s"></div>
-<div class="particle" style="left:55%; animation-delay:12s"></div>
-<div class="particle" style="left:80%; animation-delay:3s"></div>
+<!-- FLOATING SYMBOLS -->
+<div class="symbol" style="left:10%; animation-delay:0s">♥</div>
+<div class="symbol" style="left:30%; animation-delay:6s">✿</div>
+<div class="symbol" style="left:55%; animation-delay:12s">❀</div>
+<div class="symbol" style="left:75%; animation-delay:3s">♥</div>
 
 <div class="book">
+
+  <!-- CORNERS -->
+  <div class="corner top-left">✿</div>
+  <div class="corner top-right">♥</div>
+  <div class="corner bottom-left">❀</div>
+  <div class="corner bottom-right">✿</div>
 
   <!-- PAGE 1 -->
   <div class="page active">
     <h1>For You</h1>
     <p>
-This is not a grand gesture.<br>
-It is a quiet one.
+This is not something grand.
+    </p>
+    <p>
+It is something honest.
     </p>
     <div class="divider">✦ ✦ ✦</div>
     <p>
-Something that exists without asking
-for anything in return.
+A place where love exists
+without pressure,
+without demand.
     </p>
-    <div class="margin">some things begin before we name them</div>
+    <div class="margin">some things grow best when left free</div>
+    <div class="heart" onclick="nextPage()">♥</div>
   </div>
 
   <!-- PAGE 2 -->
   <div class="page">
     <p>
-I don’t always understand your silences.
+I am learning that love
+does not mean holding tightly.
     </p>
     <p>
-But I have never ignored them.
+It means standing close
+without taking space.
     </p>
-    <div class="divider">✦ ✦ ✦</div>
+    <div class="divider">✿ ✿ ✿</div>
     <p>
-I am learning that love is not
-constant presence,
-but steady respect.
+Your silence is not distance.
     </p>
+    <p>
+It is simply you being you.
+    </p>
+    <div class="heart" onclick="nextPage()">♥</div>
   </div>
 
   <!-- PAGE 3 -->
   <div class="page">
     <p>
-You once said that knowing someone
-takes time.
+I don’t need to know
+every version of you
+to respect you.
+    </p>
+    <div class="divider">❀ ❀ ❀</div>
+    <p>
+Whatever you choose to share,
+I will receive gently.
     </p>
     <p>
-I didn’t argue.
+Whatever you keep,
+I will not question.
     </p>
-    <div class="divider">✦ ✦ ✦</div>
-    <p>
-Because rushing has never created
-anything worth keeping.
-    </p>
+    <div class="heart" onclick="nextPage()">♥</div>
   </div>
 
   <!-- PAGE 4 -->
   <div class="page">
     <p>
-There are versions of you
-I may never fully see.
+This was meant to be
+a journal.
     </p>
     <p>
-That does not scare me.
+A journey of pages.
     </p>
     <div class="divider">✦ ✦ ✦</div>
     <p>
-Love does not require possession
-to be real.
+But every time I try to write you,
+you become more than words.
     </p>
+    <div class="heart" onclick="nextPage()">♥</div>
   </div>
 
   <!-- PAGE 5 -->
-  <div class="page">
-    <p>
-This was meant to be a journal.
-    </p>
-    <p>
-A journey.
-    </p>
-    <div class="divider">✦ ✦ ✦</div>
-    <p>
-But every time I try to complete it,
-you grow beyond the page.
-    </p>
-  </div>
-
-  <!-- PAGE 6 -->
   <div class="page">
     <p>
 Not in this life.
@@ -238,17 +270,34 @@ Not in this life.
     <p>
 Not in any life.
     </p>
-    <div class="divider">✦ ✦ ✦</div>
+    <div class="divider">✿ ✿ ✿</div>
     <p>
-I could never finish writing you.
+I could never finish this book.
     </p>
     <p>
-And that is how I know
-this love does not end.
+Because you are not meant
+to be completed.
+    </p>
+    <div class="heart" onclick="nextPage()">♥</div>
+  </div>
+
+  <!-- PAGE 6 -->
+  <div class="page">
+    <p>
+So this is where the pages stop.
+    </p>
+    <p>
+Not because the love ends.
+    </p>
+    <div class="divider">❀ ❀ ❀</div>
+    <p>
+But because some things
+are meant to keep growing
+outside the book.
     </p>
     <div class="end-note">
-      This book stops here.<br>
-      What it holds does not.
+This love asks for nothing.<br>
+It simply stays.
     </div>
   </div>
 

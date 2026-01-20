@@ -2,241 +2,260 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Living Love Journal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Immersive Love Journal</title>
 <style>
 /* ===== GLOBAL ===== */
-* { box-sizing:border-box; margin:0; padding:0; }
-body {
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
   font-family:'Georgia', serif;
-  background:linear-gradient(180deg,#f6efe6,#e7ddcf);
-  overflow:hidden;
-  position:relative;
+  background: linear-gradient(180deg,#fde2e2,#fff8f0);
+  display:flex; justify-content:center; align-items:center;
+  height:100vh; overflow:hidden; position:relative;
 }
 
 /* ===== PARTICLES ===== */
-.particle {
+.particle{
   position:absolute;
-  width:6px;
-  height:6px;
-  background:rgba(255,0,80,0.2);
+  width:12px; height:12px;
   border-radius:50%;
+  background:rgba(255,0,80,0.2);
   animation:float 20s linear infinite;
 }
-@keyframes float {
-  0% { transform: translateY(110vh) rotate(0deg);}
-  100% { transform: translateY(-20vh) rotate(360deg);}
+@keyframes float{
+  0%{transform:translateY(110vh) rotate(0deg);}
+  100%{transform:translateY(-20vh) rotate(360deg);}
 }
 
 /* ===== BOOK ===== */
-.book {
-  width:90%;
-  max-width:800px;
-  height:88vh;
-  background:#fdfbf7;
-  box-shadow:0 25px 60px rgba(0,0,0,0.25);
-  border-radius:6px;
-  padding:50px;
-  position:relative;
+.book{
+  width:95%;
+  max-width:900px;
+  height:90vh;
+  background:#fff6f0;
+  border-radius:8px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  padding:60px;
   overflow:hidden;
+  position:relative;
 }
 
 /* ===== PAGE ===== */
-.page {
+.page{
   display:none;
   height:100%;
 }
-.page.active { display:block; }
+.page.active{display:block;}
 
-/* ===== TEXT LINES ===== */
-.line { font-size:18px; line-height:1.8; margin-bottom:20px; opacity:0; transform:translateY(10px); transition:opacity 0.8s ease, transform 0.8s ease;}
-.line.visible { opacity:1; transform:translateY(0); }
-
-/* ===== DIVIDER ===== */
-.divider { text-align:center; margin:25px 0; opacity:0.3; letter-spacing:6px; }
+/* ===== TEXT ===== */
+.line{
+  font-size:24px;
+  font-weight:bold;
+  line-height:2;
+  margin-bottom:25px;
+  opacity:0;
+  transform:translateY(15px);
+  transition:opacity 1s ease, transform 1s ease;
+}
+.line.visible{opacity:1; transform:translateY(0);}
 
 /* ===== SYMBOLS ===== */
-.symbol {
+.symbol{
   text-align:center;
-  font-size:28px;
+  font-size:60px;
   cursor:pointer;
-  opacity:0.4;
-  transition: transform 0.3s, opacity 0.3s;
+  opacity:0.6;
+  transition:transform 0.4s ease, opacity 0.4s ease;
   user-select:none;
 }
-.symbol:hover { transform:scale(1.2); opacity:0.8; }
+.symbol:hover{transform:scale(1.2);opacity:1;}
 
-/* ===== WHISPER ===== */
-.whisper {
-  display:inline-block;
-  color:#FF2E63;
-  opacity:0;
+/* ===== FLOWERS/HEARTS ===== */
+.floating{
+  position:absolute;
+  font-size:50px;
   cursor:pointer;
-  transition: opacity 0.5s ease;
+  transition: transform 0.5s ease;
+  user-select:none;
 }
-.whisper.visible { opacity:1; }
 
-/* ===== MARGIN NOTE ===== */
-.margin { position:absolute; right:30px; top:140px; font-size:12px; font-style:italic; opacity:0.45; }
+/* ===== WINDOWS ===== */
+.window{
+  position:absolute;
+  background:rgba(255,255,255,0.95);
+  border-radius:10px;
+  padding:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  display:none;
+  z-index:1000;
+  max-width:250px;
+  font-size:16px;
+}
+.window .close{
+  position:absolute;
+  top:5px; right:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
 
 /* ===== END NOTE ===== */
-.end-note { margin-top:36px; font-style:italic; opacity:0.65; animation:pulse 1.6s ease-in-out infinite; }
+.end-note{
+  font-size:26px;
+  font-weight:bold;
+  opacity:0.7;
+  text-align:center;
+  margin-top:30px;
+  animation:pulse 1.6s ease-in-out infinite;
+}
 
-/* ===== CONTROLS ===== */
-.controls {
+/* ===== CONTROLS HEART ===== */
+.controls{
   position:absolute;
-  bottom:30px;
-  left:50px;
-  right:50px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:14px;
+  bottom:20px;
+  width:100%;
+  text-align:center;
 }
-button { background:none; border:none; cursor:pointer; opacity:0.6; font-size:14px; }
-button:hover { opacity:1; }
-.page-number { opacity:0.4; }
-
-/* ===== PULSE ANIMATION ===== */
-@keyframes pulse {
-  0% { transform: scale(1); opacity:0.7; }
-  50% { transform: scale(1.05); opacity:1; }
-  100% { transform: scale(1); opacity:0.7; }
+.controls .nav-heart{
+  font-size:70px;
+  cursor:pointer;
+  transition: transform 0.4s ease;
 }
 
-/* ===== RESPONSIVE ===== */
-@media(max-width:600px){
-  .book{padding:30px;}
-  .line{font-size:16px;}
-  .margin{display:none;}
+/* ===== PULSE ===== */
+@keyframes pulse{
+  0%{transform:scale(1);opacity:0.7;}
+  50%{transform:scale(1.1);opacity:1;}
+  100%{transform:scale(1);opacity:0.7;}
 }
 </style>
 </head>
-
 <body>
 
 <!-- PARTICLES -->
-<div class="particle" style="left:10%; animation-delay:0s"></div>
-<div class="particle" style="left:25%; animation-delay:4s"></div>
-<div class="particle" style="left:50%; animation-delay:8s"></div>
-<div class="particle" style="left:75%; animation-delay:2s"></div>
-<div class="particle" style="left:85%; animation-delay:6s"></div>
+<div class="particle" style="left:5%;animation-delay:0s;"></div>
+<div class="particle" style="left:20%;animation-delay:3s;"></div>
+<div class="particle" style="left:40%;animation-delay:6s;"></div>
+<div class="particle" style="left:60%;animation-delay:2s;"></div>
+<div class="particle" style="left:80%;animation-delay:5s;"></div>
 
 <div class="book">
 
-  <!-- PAGE 1 -->
-  <div class="page active">
-    <h1>For You</h1>
-    <p class="line">This is not something grand.</p>
-    <p class="line">It is something honest.</p>
-    <div class="divider">✦ ✦ ✦</div>
-    <p class="line">A place where love exists</p>
-    <p class="line">without pressure, without demand.</p>
-    <p class="line">Some things grow best when left <span class="whisper" onclick="revealWhisper(this)">free</span></p>
-    <div class="symbol" onclick="nextPage()">♥</div>
-  </div>
+<!-- PAGE 1 -->
+<div class="page active" data-page="1">
+  <p class="line">This is a journal of love,</p>
+  <p class="line">not meant to be finished.</p>
+  <p class="line">Every word flows gently from my heart.</p>
+  <div class="symbol" onclick="showWindow(1)">🌹</div>
+</div>
 
-  <!-- PAGE 2 -->
-  <div class="page">
-    <p class="line">I am learning that love does not mean holding tightly.</p>
-    <p class="line">It means standing close without taking space.</p>
-    <div class="divider">✿ ✿ ✿</div>
-    <p class="line">Your silence is not distance.</p>
-    <p class="line">It is simply you being you.</p>
-    <p class="line">Sometimes words whisper what hearts feel, <span class="whisper" onclick="revealWhisper(this)">listen closely</span></p>
-    <div class="symbol" onclick="nextPage()">♥</div>
-  </div>
+<!-- PAGE 2 -->
+<div class="page" data-page="2">
+  <p class="line">Some words are whispers,</p>
+  <p class="line">some gestures are silent music.</p>
+  <p class="line">Click the flower to see a secret I love about you.</p>
+  <div class="symbol" onclick="showWindow(2)">💜</div>
+</div>
 
-  <!-- PAGE 3 -->
-  <div class="page">
-    <p class="line">I don’t need to know every version of you to respect you.</p>
-    <div class="divider">❀ ❀ ❀</div>
-    <p class="line">Whatever you choose to share, I receive gently.</p>
-    <p class="line">Whatever you keep, I will not question.</p>
-    <p class="line">Some secrets bloom quietly, <span class="whisper" onclick="revealWhisper(this)">just like love</span></p>
-    <div class="symbol" onclick="nextPage()">♥</div>
-  </div>
+<!-- PAGE 3 -->
+<div class="page" data-page="3">
+  <p class="line">Even when unseen, your kindness shines.</p>
+  <p class="line">Even when quiet, your heart speaks volumes.</p>
+  <div class="symbol" onclick="showWindow(3)">🌼</div>
+</div>
 
-  <!-- PAGE 4 -->
-  <div class="page">
-    <p class="line">This was meant to be a journal.</p>
-    <p class="line">A journey of pages.</p>
-    <div class="divider">✦ ✦ ✦</div>
-    <p class="line">But every time I try to write you,</p>
-    <p class="line">you become more than words.</p>
-    <p class="line">And sometimes you whisper back silently, <span class="whisper" onclick="revealWhisper(this)">without saying a word</span></p>
-    <div class="symbol" onclick="nextPage()">♥</div>
-  </div>
+<!-- PAGE 4 -->
+<div class="page" data-page="4">
+  <p class="line">I could try to write it all,</p>
+  <p class="line">but each page becomes infinite.</p>
+  <p class="line">Your love is too vast to capture completely.</p>
+  <div class="symbol" onclick="showWindow(4)">🌹</div>
+</div>
 
-  <!-- PAGE 5 -->
-  <div class="page">
-    <p class="line">Not in this life.</p>
-    <p class="line">Not in any life.</p>
-    <div class="divider">✿ ✿ ✿</div>
-    <p class="line">I could never finish this book.</p>
-    <p class="line">Because you are not meant to be completed.</p>
-    <p class="line">Some love is infinite, <span class="whisper" onclick="revealWhisper(this)">just like this</span></p>
-    <div class="symbol" onclick="nextPage()">♥</div>
-  </div>
+<!-- PAGE 5 -->
+<div class="page" data-page="5">
+  <p class="line">So let this book breathe with us,</p>
+  <p class="line">let the words float like petals.</p>
+  <p class="line">Click the heart to see a little truth of you.</p>
+  <div class="symbol" onclick="showWindow(5)">💜</div>
+</div>
 
-  <!-- PAGE 6 -->
-  <div class="page">
-    <p class="line">So this is where the pages stop.</p>
-    <p class="line">Not because the love ends.</p>
-    <div class="divider">❀ ❀ ❀</div>
-    <p class="line">Some things are meant to keep growing outside the book.</p>
-    <div class="end-note">
-This love asks for nothing.<br>
-It simply stays.<br>
-It will never end, in this life or any other.
-    </div>
-  </div>
+<!-- PAGE 6 -->
+<div class="page" data-page="6">
+  <p class="line">Not in this life,</p>
+  <p class="line">Not in any life.</p>
+  <p class="line">This love will never end.</p>
+  <div class="end-note">♥ Infinite Love ♥</div>
+</div>
 
-  <!-- CONTROLS -->
-  <div class="controls">
-    <button onclick="prevPage()">← Back</button>
-    <div class="page-number" id="pageNum">1 / 6</div>
-    <button onclick="nextPage()">Next →</button>
-  </div>
+<!-- WINDOWS -->
+<div class="window" id="win1">
+  <span class="close" onclick="closeWindow('win1')">×</span>
+  <p>You are sweeter than you realize.</p>
+</div>
+<div class="window" id="win2">
+  <span class="close" onclick="closeWindow('win2')">×</span>
+  <p>Your care touches hearts silently.</p>
+</div>
+<div class="window" id="win3">
+  <span class="close" onclick="closeWindow('win3')">×</span>
+  <p>Even your quiet moments are full of love.</p>
+</div>
+<div class="window" id="win4">
+  <span class="close" onclick="closeWindow('win4')">×</span>
+  <p>You are more thoughtful than you think.</p>
+</div>
+<div class="window" id="win5">
+  <span class="close" onclick="closeWindow('win5')">×</span>
+  <p>Your little gestures make the world softer.</p>
+</div>
+
+<!-- NAVIGATION -->
+<div class="controls">
+  <div class="nav-heart" onclick="nextPage()">❤️</div>
+</div>
 
 </div>
 
 <script>
-// ===== PAGE HANDLING =====
-const pages = document.querySelectorAll(".page");
+// ===== VARIABLES =====
+const pages = document.querySelectorAll('.page');
 let current = 0;
 
 // ===== LINE ANIMATION =====
 function showLines(page){
-  const lines = page.querySelectorAll(".line");
-  lines.forEach(l => l.classList.remove('visible'));
-  lines.forEach((line, i) => {
-    setTimeout(()=>{ line.classList.add('visible'); }, i*800 + Math.random()*200);
+  const lines = page.querySelectorAll('.line');
+  lines.forEach(l=>l.classList.remove('visible'));
+  lines.forEach((line,i)=>{
+    setTimeout(()=>{ line.classList.add('visible'); }, i*800 + Math.random()*300);
   });
 }
 
-// ===== WHISPER =====
-function revealWhisper(el){
-  el.classList.add('visible');
+// ===== WINDOWS =====
+function showWindow(num){
+  const win = document.getElementById('win'+num);
+  if(win){ win.style.display='block'; }
+}
+function closeWindow(id){
+  const win = document.getElementById(id);
+  if(win){ win.style.display='none'; }
 }
 
-// ===== PAGE UPDATE =====
+// ===== PAGE NAVIGATION =====
 function updatePages(){
   pages.forEach((p,i)=>p.classList.toggle('active',i===current));
   showLines(pages[current]);
-  document.getElementById("pageNum").textContent = (current+1)+" / "+pages.length;
+  // reset all windows
+  for(let i=1;i<=5;i++){ closeWindow('win'+i); }
 }
 
-// ===== NAVIGATION =====
-function nextPage(){ if(current<pages.length-1){ current++; updatePages(); } }
-function prevPage(){ if(current>0){ current--; updatePages(); } }
+function nextPage(){
+  if(current<pages.length-1){ current++; updatePages(); }
+}
+function prevPage(){
+  if(current>0){ current--; updatePages(); }
+}
 
-// ===== INITIAL PAGE =====
+// ===== INITIAL =====
 updatePages();
 </script>
 

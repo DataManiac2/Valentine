@@ -1,219 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>A Journal That Never Ends</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>A Journal That Never Ends</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Georgia", serif;
-      background: #fff7f9;
-      color: #3b2f2f;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter:wght@300;400&display=swap');
 
-    .book {
-      width: 90%;
-      max-width: 420px;
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #fff0f4, #fde2e8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+}
 
-    .page {
-      display: none;
-    }
+.book {
+  width: 92%;
+  max-width: 430px;
+  background: linear-gradient(#fffdfc, #fff7f9);
+  padding: 32px 28px;
+  border-radius: 18px;
+  box-shadow:
+    0 25px 50px rgba(0,0,0,0.15),
+    inset 0 0 0 1px rgba(255,255,255,0.6);
+  position: relative;
+  overflow: hidden;
+}
 
-    .page.active {
-      display: block;
-    }
+.book::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.02),
+    rgba(0,0,0,0.02) 1px,
+    transparent 1px,
+    transparent 6px
+  );
+  pointer-events: none;
+}
 
-    h1, h2 {
-      font-weight: normal;
-      margin-bottom: 16px;
-    }
+.page {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: all 0.6s ease;
+  display: none;
+}
 
-    p {
-      font-size: 16px;
-      line-height: 1.6;
-      white-space: pre-line;
-    }
+.page.active {
+  display: block;
+  opacity: 1;
+  transform: translateX(0);
+}
 
-    button {
-      margin-top: 25px;
-      padding: 10px 18px;
-      border: none;
-      border-radius: 20px;
-      background: #f3b5c6;
-      color: #3b2f2f;
-      font-size: 14px;
-      cursor: pointer;
-    }
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  margin-bottom: 18px;
+  color: #3a2b2f;
+}
 
-    button:hover {
-      background: #f0a6ba;
-    }
+p {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: #4a3a3f;
+  white-space: pre-line;
+}
 
-    .fade-text {
-      opacity: 0;
-      animation: fadeIn 4s forwards;
-      animation-delay: 2s;
-    }
+button {
+  margin-top: 28px;
+  padding: 9px 20px;
+  border-radius: 22px;
+  border: none;
+  background: rgba(243,181,198,0.8);
+  color: #3a2b2f;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
+button:hover {
+  background: rgba(243,181,198,1);
+  transform: translateY(-1px);
+}
 
-    .hidden {
-      display: none;
-    }
+.fade-text {
+  opacity: 0;
+  animation: fadeIn 4s forwards;
+  animation-delay: 1.8s;
+}
 
-    .lock {
-      font-size: 14px;
-      opacity: 0.8;
-      margin-top: 15px;
-    }
-  </style>
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.hidden { display: none; }
+
+.lock-note {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: 14px;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="book">
+<div class="book">
 
-    <!-- PAGE 1 -->
-    <div class="page active" id="page1">
-      <h1>For You</h1>
-      <p>
+  <div class="page active" id="page1">
+    <h1>For You</h1>
+    <p>
 This is not a gift.
 This is not a promise.
-This is just something
-that existed because you do.
-      </p>
-      <button onclick="goTo('page2')">Next</button>
-    </div>
 
-    <!-- PAGE 2 -->
-    <div class="page" id="page2">
-      <h2>Somewhere Along the Way</h2>
-      <p>
-I realised love doesn’t have to be loud.
-It doesn’t have to ask.
-It just stays.
-      </p>
-      <button onclick="goTo('page3')">Next</button>
-    </div>
-
-    <!-- PAGE 3 -->
-    <div class="page" id="page3">
-      <h2>The Way I Feel</h2>
-      <p>
-Even when you pull away,
-even when you need space,
-even when you are quiet,
-my care for you does not change.
-      </p>
-      <button onclick="goTo('page4')">Next</button>
-    </div>
-
-    <!-- PAGE 4 -->
-    <div class="page" id="page4">
-      <h2>No Expectations</h2>
-      <p>
-This is not me asking for anything.
-Not time.
-Not reassurance.
-Not certainty.
-Just honesty.
-      </p>
-      <button onclick="goTo('page5')">Next</button>
-    </div>
-
-    <!-- PAGE 5 -->
-    <div class="page" id="page5">
-      <h2>What You Mean To Me</h2>
-      <p>
-You are not my whole life.
-But you are the part
-that makes life softer.
-      </p>
-      <button onclick="goToBlankPage()">Next</button>
-    </div>
-
-    <!-- BLANK PAGE -->
-    <div class="page" id="blankPage">
-      <h2>Pages That Will Never Be Enough</h2>
-      <p class="fade-text">
-Some pages are left empty,
-not because there is nothing to say,
-but because words fall short.
-      </p>
-      <button onclick="goToLockedPage()">Next</button>
-    </div>
-
-    <!-- LOCKED PAGE -->
-    <div class="page" id="lockedPage">
-      <h2>This Page Is Not Ready Yet</h2>
-      <p id="lockMessage"></p>
-      <div class="lock" id="lockNote"></div>
-      <button id="unlockBtn" class="hidden" onclick="unlockPage()">Open</button>
-    </div>
-
+This exists
+only because you do.
+    </p>
+    <button onclick="goTo('page2')">Turn the page</button>
   </div>
 
-  <script>
-    function goTo(pageId) {
-      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-      document.getElementById(pageId).classList.add("active");
-    }
+  <div class="page" id="page2">
+    <h2>Somewhere Along the Way</h2>
+    <p>
+I learned that love
+does not need to be loud.
 
-    function goToBlankPage() {
-      goTo("blankPage");
-    }
+Sometimes,
+it just stays.
+    </p>
+    <button onclick="goTo('page3')">Next</button>
+  </div>
 
-    function goToLockedPage() {
-      goTo("lockedPage");
+  <div class="page" id="page3">
+    <h2>The Way I Feel</h2>
+    <p>
+Even when you pull away,
+even when you need space,
+even when words disappear,
 
-      const unlockDate = new Date("2026-02-14"); // change if you want
-      const today = new Date();
+my care does not.
+    </p>
+    <button onclick="goTo('page4')">Next</button>
+  </div>
 
-      const message = document.getElementById("lockMessage");
-      const button = document.getElementById("unlockBtn");
-      const note = document.getElementById("lockNote");
+  <div class="page" id="page4">
+    <h2>No Expectations</h2>
+    <p>
+This is not me asking.
 
-      if (today >= unlockDate) {
-        message.innerText = "This page waited for the right moment.";
-        button.classList.remove("hidden");
-        note.innerText = "";
-      } else {
-        message.innerText =
-          "This page is locked.\n\n" +
-          "Not because it is secret,\n" +
-          "but because some feelings\n" +
-          "need more time to exist.";
-        note.innerText = "Some things are meant to remain unfinished.";
-      }
-    }
+Not for certainty.
+Not for reassurance.
+Not even for time.
 
-    function unlockPage() {
-      document.getElementById("lockMessage").innerText =
-        "If I ever finish this journal,\n" +
-        "it would mean you stopped being special.\n\n" +
-        "And that will never happen.\n\n" +
-        "Not in this life.\n" +
-        "Not in any life.\n\n" +
-        "So this book remains incomplete,\n" +
-        "because loving you has no ending.";
-      document.getElementById("unlockBtn").classList.add("hidden");
-      document.getElementById("lockNote").innerText = "";
-    }
-  </script>
+Only honesty.
+    </p>
+    <button onclick="goTo('page5')">Next</button>
+  </div>
+
+  <div class="page" id="page5">
+    <h2>What You Mean To Me</h2>
+    <p>
+You are not my whole life.
+
+But you are the part
+that makes life softer.
+    </p>
+    <button onclick="goTo('blankPage')">Next</button>
+  </div>
+
+  <div class="page" id="blankPage">
+    <h2>Pages That Will Never Be Enough</h2>
+    <p class="fade-text">
+Some pages stay empty,
+not because there is nothing to say,
+
+but because words fall short.
+    </p>
+    <button onclick="goToLockedPage()">Next</button>
+  </div>
+
+  <div class="page" id="lockedPage">
+    <h2>This Page Is Not Ready Yet</h2>
+    <p id="lockMessage"></p>
+    <div class="lock-note" id="lockNote"></div>
+    <button id="unlockBtn" class="hidden" onclick="unlockPage()">Open</button>
+  </div>
+
+</div>
+
+<script>
+function goTo(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function goToLockedPage() {
+  goTo('lockedPage');
+
+  const unlockDate = new Date("2026-02-14");
+  const today = new Date();
+  const msg = document.getElementById("lockMessage");
+  const btn = document.getElementById("unlockBtn");
+  const note = document.getElementById("lockNote");
+
+  if (today >= unlockDate) {
+    msg.innerText = "This page waited for the right moment.";
+    btn.classList.remove("hidden");
+    note.innerText = "";
+  } else {
+    msg.innerText =
+      "This page is locked.\n\n" +
+      "Not because it is hidden,\n" +
+      "but because some feelings\n" +
+      "need time to breathe.";
+    note.innerText = "Some love stories are never meant to finish.";
+  }
+}
+
+function unlockPage() {
+  document.getElementById("lockMessage").innerText =
+    "If I ever finished this journal,\n" +
+    "it would mean you stopped being special.\n\n" +
+    "That will never happen.\n\n" +
+    "Not in this life.\n" +
+    "Not in any life.\n\n" +
+    "So this book remains unfinished,\n" +
+    "because loving you has no end.";
+  document.getElementById("unlockBtn").classList.add("hidden");
+  document.getElementById("lockNote").innerText = "";
+}
+</script>
 
 </body>
 </html>

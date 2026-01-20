@@ -4,41 +4,46 @@
 <meta charset="UTF-8">
 <title>A Book for You</title>
 
+<!-- Handwritten font -->
+<link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+
 <style>
 body {
   margin: 0;
   height: 100vh;
-  background: #f5efe6;
+  background: #e8dfd2;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Georgia, serif;
+  font-family: 'Handlee', cursive;
 }
 
 .book {
-  width: 700px;
-  height: 450px;
+  width: 720px;
+  height: 460px;
   position: relative;
   perspective: 2000px;
 }
 
-/* Page base */
+/* Page styling */
 .page {
   width: 100%;
   height: 100%;
-  background: #fffaf3;
   position: absolute;
+  background:
+    linear-gradient(0deg, rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
+    url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+  background-size: cover;
   top: 0;
   left: 0;
+  padding: 55px;
+  box-sizing: border-box;
   transform-origin: left;
   transform-style: preserve-3d;
   transition: transform 1s ease;
-  padding: 50px;
-  box-sizing: border-box;
-  box-shadow: inset -1px 0 0 rgba(0,0,0,0.1);
+  box-shadow: inset -2px 0 8px rgba(0,0,0,0.08);
 }
 
-/* Page order */
 #p1 { z-index: 5; }
 #p2 { z-index: 4; }
 #p3 { z-index: 3; }
@@ -46,11 +51,11 @@ body {
 #p5 { z-index: 1; }
 
 .page p {
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1.9;
+  color: #3b2f2f;
 }
 
-/* Flip effect */
 .flipped {
   transform: rotateY(-180deg);
 }
@@ -59,31 +64,38 @@ body {
 .nav {
   position: absolute;
   bottom: 25px;
-  right: 30px;
+  right: 35px;
   cursor: pointer;
-  color: #777;
+  color: #6b5b4b;
 }
 
 .nav.left {
-  left: 30px;
+  left: 35px;
   right: auto;
 }
 
-/* Hidden text */
+/* Interactive words */
+.word {
+  color: #a04c4c;
+  cursor: pointer;
+  border-bottom: 1px dotted #a04c4c;
+}
+
 .hidden {
   display: none;
-  color: #b85c5c;
   margin-top: 15px;
+  color: #8b3f3f;
 }
 
 .show {
   display: block;
 }
 
-.word {
-  color: #b85c5c;
-  cursor: pointer;
-  border-bottom: 1px dotted #b85c5c;
+/* Typing ending */
+#typing {
+  font-size: 24px;
+  margin-top: 40px;
+  white-space: pre-wrap;
 }
 </style>
 </head>
@@ -93,46 +105,52 @@ body {
 
   <div class="page" id="p1">
     <p><strong>A small book for you</strong></p>
-    <p>I didn’t want to send a message.<br>I wanted to leave something behind.</p>
+    <p>
+      I didn’t want to send words that could disappear.<br>
+      So I made something that stays.
+    </p>
     <div class="nav" onclick="flip(1)">Turn page →</div>
   </div>
 
   <div class="page" id="p2">
     <p>
-      I thought of you when the 
+      I think of you when the 
       <span class="word" onclick="toggle('m1')">sunlight</span>
-      entered quietly.
+      enters quietly.
     </p>
-    <p id="m1" class="hidden">Some warmth doesn’t need attention.</p>
+    <p id="m1" class="hidden">
+      Some warmth doesn’t need to be noticed to be felt.
+    </p>
     <div class="nav left" onclick="unflip(1)">← Back</div>
     <div class="nav" onclick="flip(2)">Turn page →</div>
   </div>
 
   <div class="page" id="p3">
     <p>
-      I noticed your <span class="word" onclick="toggle('m2')">smile</span>
-      when you thought I wasn’t watching.
+      Your <span class="word" onclick="toggle('m2')">presence</span>
+      changes ordinary moments.
     </p>
-    <p id="m2" class="hidden">That smile stays with me.</p>
+    <p id="m2" class="hidden">
+      Even silence feels kinder.
+    </p>
     <div class="nav left" onclick="unflip(2)">← Back</div>
     <div class="nav" onclick="flip(3)">Turn page →</div>
   </div>
 
   <div class="page" id="p4">
     <p>
-      When you’re close, I feel calm.<br>
-      When you’re distant, I stay.
+      I don’t need anything from you.<br>
+      I don’t expect anything either.
+    </p>
+    <p>
+      This is simply where my heart stays.
     </p>
     <div class="nav left" onclick="unflip(3)">← Back</div>
-    <div class="nav" onclick="flip(4)">Turn page →</div>
+    <div class="nav" onclick="flip(4); startTyping()">Turn page →</div>
   </div>
 
   <div class="page" id="p5">
-    <p>
-      This book doesn’t ask for anything.<br><br>
-      It just wanted you to know<br>
-      you are loved — quietly.
-    </p>
+    <p id="typing"></p>
     <div class="nav left" onclick="unflip(4)">← Back</div>
   </div>
 
@@ -149,6 +167,22 @@ function unflip(n) {
 
 function toggle(id) {
   document.getElementById(id).classList.toggle("show");
+}
+
+/* Typing effect */
+const text =
+"This love is never going to end.\n\nNot today.\nNot tomorrow.\nNot ever.";
+
+let i = 0;
+function startTyping() {
+  const target = document.getElementById("typing");
+  if (target.innerHTML.length === 0) {
+    const interval = setInterval(() => {
+      target.innerHTML += text.charAt(i);
+      i++;
+      if (i >= text.length) clearInterval(interval);
+    }, 60);
+  }
 }
 </script>
 

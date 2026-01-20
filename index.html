@@ -3,181 +3,255 @@
 <head>
 <meta charset="UTF-8">
 <title>For You</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Patrick+Hand&display=swap');
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: #f6f2ee;
-  overflow: hidden;
+* {
+  box-sizing: border-box;
 }
 
 body {
+  margin: 0;
+  background: #e9e4dd;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  font-family: 'Cormorant Garamond', serif;
 }
 
 .book {
-  width: 100%;
-  height: 100%;
-  max-width: 420px;
-  background: #fbf9f6;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-  padding: 40px 26px;
-  box-sizing: border-box;
+  width: 90%;
+  max-width: 700px;
+  height: 85vh;
+  background: #fdfbf7;
   position: relative;
+  perspective: 2000px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
 }
 
 .page {
+  width: 100%;
+  height: 100%;
   position: absolute;
-  inset: 40px 26px;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  font-family: 'Cormorant Garamond', serif;
-  color: #2e2a27;
-  line-height: 1.8;
+  top: 0;
+  left: 0;
+  padding: 50px 60px;
+  background: #fdfbf7;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
+  box-shadow: inset -1px 0 0 rgba(0,0,0,0.1);
 }
 
-.page.active {
-  opacity: 1;
+.page::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  background: linear-gradient(to left, rgba(0,0,0,0.15), transparent);
+  pointer-events: none;
 }
 
-h1, h2 {
-  font-weight: 500;
-  margin-bottom: 20px;
+.page.flipped {
+  transform: rotateY(-180deg);
+}
+
+.page-content {
+  backface-visibility: hidden;
+}
+
+.page-number {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  font-size: 13px;
+  opacity: 0.5;
 }
 
 .hand {
   font-family: 'Patrick Hand', cursive;
-  font-size: 17px;
+  font-size: 18px;
 }
 
-.next {
+.note {
+  margin-top: 25px;
+  font-size: 15px;
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.turn {
   position: absolute;
   bottom: 30px;
-  right: 26px;
+  left: 50px;
   font-size: 14px;
   opacity: 0.6;
   cursor: pointer;
 }
 
-.next:hover {
+.turn:hover {
   opacity: 1;
+}
+
+h1, h2 {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .book {
+    height: 90vh;
+  }
+  .page {
+    padding: 35px 28px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="book">
+<div class="book" id="book">
 
-  <div class="page active">
-    <h1>For you</h1>
-    <p>
-I didn’t plan this.
+  <!-- PAGE 1 -->
+  <div class="page">
+    <div class="page-content">
+      <h1>For you</h1>
+      <p>
+I didn’t plan to write this.
 
-I just started writing  
-and somehow you were  
-already here.
-    </p>
-    <div class="next" onclick="nextPage()">turn</div>
+It started as a thought.
+Then it stayed.
+      </p>
+      <div class="note hand">
+        (some things don’t ask permission)
+      </div>
+      <div class="turn" onclick="turnPage()">turn page</div>
+      <div class="page-number">1</div>
+    </div>
   </div>
 
+  <!-- PAGE 2 -->
   <div class="page">
-    <p>
-I don’t know how to explain  
-what you feel like to me.
+    <div class="page-content">
+      <p>
+I don’t always know
+what to say to you.
 
-Some days it’s calm.  
-Some days confusing.  
-Some days very quiet.
-    </p>
-    <div class="next" onclick="nextPage()">turn</div>
+Sometimes I talk too much.
+Sometimes I stop completely.
+      </p>
+      <div class="note">
+        I’m still learning where to stand.
+      </div>
+      <div class="turn" onclick="turnPage()">turn page</div>
+      <div class="page-number">2</div>
+    </div>
   </div>
 
+  <!-- PAGE 3 -->
   <div class="page">
-    <p>
-I’ve learned something though.
+    <div class="page-content">
+      <p>
+I used to think love meant
+holding on tighter.
 
-Love doesn’t always look like effort.  
-Sometimes it looks like restraint.
-    </p>
-    <div class="next" onclick="nextPage()">turn</div>
+Now I think it means
+knowing when not to.
+      </p>
+      <div class="turn" onclick="turnPage()">turn page</div>
+      <div class="page-number">3</div>
+    </div>
   </div>
 
+  <!-- PAGE 4 -->
   <div class="page">
-    <p>
-So if I’ve been quieter lately,  
-it isn’t absence.
-
-It’s me learning  
-how to stay without holding too tight.
-    </p>
-    <div class="next" onclick="nextPage()">turn</div>
-  </div>
-
-  <div class="page">
-    <p>
-You once said  
+    <div class="page-content">
+      <p>
+You once said
 love is only a part of life.
 
-I think you were right.
-
-But you are the part  
-that makes the rest make sense.
-    </p>
-    <div class="next" onclick="nextPage()">turn</div>
+I didn’t disagree.
+I just noticed how much
+that part matters.
+      </p>
+      <div class="note hand">
+        (you changed how I see things)
+      </div>
+      <div class="turn" onclick="turnPage()">turn page</div>
+      <div class="page-number">4</div>
+    </div>
   </div>
 
+  <!-- PAGE 5 -->
   <div class="page">
-    <p class="hand">
-Some pages don’t get written.
+    <div class="page-content">
+      <p>
+Some days feel easy.
+Some days feel unsure.
 
-Not because they matter less,  
-but because they matter too much.
-    </p>
-    <div class="next" onclick="nextPage()">turn</div>
+Both exist.
+And that’s okay.
+      </p>
+      <div class="turn" onclick="turnPage()">turn page</div>
+      <div class="page-number">5</div>
+    </div>
   </div>
 
+  <!-- PAGE 6 -->
   <div class="page">
-    <p>
+    <div class="page-content">
+      <p class="hand">
 I could keep writing.
+I probably will.
 
-In this life.  
-In another one.  
-In ways that still wouldn’t finish you.
-    </p>
-    <div class="next" onclick="nextPage()">turn</div>
+Just not all at once.
+      </p>
+      <div class="note">
+        this book doesn’t rush
+      </div>
+      <div class="turn" onclick="turnPage()">turn page</div>
+      <div class="page-number">6</div>
+    </div>
   </div>
 
+  <!-- PAGE 7 -->
   <div class="page">
-    <p class="hand">
-So I’ll stop here.
+    <div class="page-content">
+      <p>
+If this book ever ends,
+it won’t be because I ran out of words.
 
-Not because this ends,  
-but because it doesn’t.
-    </p>
+It will be because
+some things don’t end.
+      </p>
+      <div class="page-number">—</div>
+    </div>
   </div>
 
 </div>
 
 <script>
 let pages = document.querySelectorAll('.page');
-let current = 0;
+let currentPage = 0;
 
-function nextPage() {
-  if (current < pages.length - 1) {
-    pages[current].classList.remove('active');
-    current++;
-    pages[current].classList.add('active');
+function turnPage() {
+  if (currentPage < pages.length) {
+    pages[currentPage].classList.add('flipped');
+    currentPage++;
   }
 }
+
+/* Optional: click anywhere right side to turn */
+document.getElementById('book').addEventListener('click', (e) => {
+  if (e.clientX > window.innerWidth / 2) {
+    turnPage();
+  }
+});
 </script>
 
 </body>

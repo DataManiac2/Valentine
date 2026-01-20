@@ -2,38 +2,35 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>A Love That Breathes</title>
+<title>Living Love Journal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ===== RESET ===== */
-* {
-  box-sizing: border-box;
-}
-
-/* ===== BACKGROUND ===== */
+/* ===== GLOBAL ===== */
+* { box-sizing: border-box; margin:0; padding:0; }
 body {
-  margin: 0;
   height: 100vh;
-  background: linear-gradient(180deg, #f6efe6, #e7ddcf);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Georgia", serif;
+  font-family: 'Georgia', serif;
+  background: linear-gradient(180deg,#f6efe6,#e7ddcf);
   overflow: hidden;
+  position: relative;
 }
 
-/* ===== FLOATING LOVE ELEMENTS ===== */
-.symbol {
+/* ===== PARTICLES ===== */
+.particle {
   position: absolute;
-  font-size: 18px;
-  opacity: 0.15;
-  animation: drift 20s linear infinite;
+  width: 6px;
+  height: 6px;
+  background: rgba(255,0,80,0.25);
+  border-radius: 50%;
+  animation: float 18s linear infinite;
 }
-
-@keyframes drift {
-  from { transform: translateY(110vh) rotate(0deg); }
-  to { transform: translateY(-20vh) rotate(360deg); }
+@keyframes float {
+  0% { transform: translateY(110vh) rotate(0deg);}
+  100% { transform: translateY(-20vh) rotate(360deg);}
 }
 
 /* ===== BOOK ===== */
@@ -49,252 +46,132 @@ body {
   overflow: hidden;
 }
 
-/* ===== FLOWER CORNERS ===== */
-.corner {
-  position: absolute;
-  font-size: 22px;
-  opacity: 0.25;
-}
-
-.top-left { top: 18px; left: 20px; }
-.top-right { top: 18px; right: 20px; }
-.bottom-left { bottom: 18px; left: 20px; }
-.bottom-right { bottom: 18px; right: 20px; }
-
 /* ===== PAGE ===== */
 .page {
   display: none;
   height: 100%;
-  animation: appear 0.7s ease;
 }
+.page.active { display:block; }
 
-.page.active {
-  display: block;
+h1 { margin-bottom:20px; font-weight:normal; font-size:28px; }
+p { font-size:18px; line-height:1.7; margin-bottom:22px; opacity:0; }
+.divider { text-align:center; margin:25px 0; opacity:0.3; letter-spacing:6px; }
+.margin { position:absolute; right:30px; top:140px; font-size:12px; font-style:italic; opacity:0.45; }
+
+/* ===== HEARTS & FLOWERS ===== */
+.symbol {
+  text-align:center;
+  font-size:28px;
+  cursor:pointer;
+  opacity:0.4;
+  transition: transform 0.3s, opacity 0.3s;
 }
-
-@keyframes appear {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-h1 {
-  font-weight: normal;
-  margin-bottom: 26px;
-}
-
-p {
-  font-size: 18px;
-  line-height: 1.75;
-  margin-bottom: 22px;
-}
-
-/* ===== DIVIDER ===== */
-.divider {
-  text-align: center;
-  margin: 30px 0;
-  opacity: 0.4;
-  letter-spacing: 6px;
-}
-
-/* ===== INTERACTIVE HEART ===== */
-.heart {
-  text-align: center;
-  font-size: 26px;
-  cursor: pointer;
-  opacity: 0.4;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.heart:hover {
+.symbol:hover {
   transform: scale(1.2);
-  opacity: 0.8;
-}
-
-/* ===== MARGIN NOTE ===== */
-.margin {
-  position: absolute;
-  right: 30px;
-  top: 140px;
-  width: 140px;
-  font-size: 12px;
-  font-style: italic;
-  opacity: 0.45;
+  opacity:0.8;
 }
 
 /* ===== END NOTE ===== */
-.end-note {
-  margin-top: 36px;
-  font-style: italic;
-  opacity: 0.65;
-}
+.end-note { margin-top:36px; font-style:italic; opacity:0.65; }
 
 /* ===== CONTROLS ===== */
 .controls {
-  position: absolute;
-  bottom: 30px;
-  left: 50px;
-  right: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
+  position:absolute;
+  bottom:30px;
+  left:50px;
+  right:50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:14px;
 }
+button { background:none; border:none; cursor:pointer; opacity:0.6; font-size:14px; }
+button:hover { opacity:1; }
+.page-number { opacity:0.4; }
 
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  opacity: 0.6;
-  font-size: 14px;
-}
-
-button:hover {
-  opacity: 1;
-}
-
-.page-number {
-  opacity: 0.4;
+/* ===== ANIMATION ===== */
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(12px); }
+  to { opacity:1; transform:translateY(0);}
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
-  .book {
-    padding: 30px;
-  }
-  p {
-    font-size: 16px;
-  }
-  .margin {
-    display: none;
-  }
+@media(max-width:600px){
+  .book{padding:30px;}
+  p{font-size:16px;}
+  .margin{display:none;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- FLOATING SYMBOLS -->
-<div class="symbol" style="left:10%; animation-delay:0s">♥</div>
-<div class="symbol" style="left:30%; animation-delay:6s">✿</div>
-<div class="symbol" style="left:55%; animation-delay:12s">❀</div>
-<div class="symbol" style="left:75%; animation-delay:3s">♥</div>
+<!-- PARTICLES -->
+<div class="particle" style="left:10%; animation-delay:0s"></div>
+<div class="particle" style="left:25%; animation-delay:4s"></div>
+<div class="particle" style="left:50%; animation-delay:8s"></div>
+<div class="particle" style="left:75%; animation-delay:2s"></div>
+<div class="particle" style="left:85%; animation-delay:6s"></div>
 
 <div class="book">
-
-  <!-- CORNERS -->
-  <div class="corner top-left">✿</div>
-  <div class="corner top-right">♥</div>
-  <div class="corner bottom-left">❀</div>
-  <div class="corner bottom-right">✿</div>
 
   <!-- PAGE 1 -->
   <div class="page active">
     <h1>For You</h1>
-    <p>
-This is not something grand.
-    </p>
-    <p>
-It is something honest.
-    </p>
+    <p class="line">This is not something grand.</p>
+    <p class="line">It is something honest.</p>
     <div class="divider">✦ ✦ ✦</div>
-    <p>
-A place where love exists
-without pressure,
-without demand.
-    </p>
-    <div class="margin">some things grow best when left free</div>
-    <div class="heart" onclick="nextPage()">♥</div>
+    <p class="line">A place where love exists</p>
+    <p class="line">without pressure, without demand.</p>
+    <div class="margin">Some things grow best when left free</div>
+    <div class="symbol" onclick="nextPage()">♥</div>
   </div>
 
   <!-- PAGE 2 -->
   <div class="page">
-    <p>
-I am learning that love
-does not mean holding tightly.
-    </p>
-    <p>
-It means standing close
-without taking space.
-    </p>
+    <p class="line">I am learning that love does not mean holding tightly.</p>
+    <p class="line">It means standing close without taking space.</p>
     <div class="divider">✿ ✿ ✿</div>
-    <p>
-Your silence is not distance.
-    </p>
-    <p>
-It is simply you being you.
-    </p>
-    <div class="heart" onclick="nextPage()">♥</div>
+    <p class="line">Your silence is not distance.</p>
+    <p class="line">It is simply you being you.</p>
+    <div class="symbol" onclick="nextPage()">♥</div>
   </div>
 
   <!-- PAGE 3 -->
   <div class="page">
-    <p>
-I don’t need to know
-every version of you
-to respect you.
-    </p>
+    <p class="line">I don’t need to know every version of you to respect you.</p>
     <div class="divider">❀ ❀ ❀</div>
-    <p>
-Whatever you choose to share,
-I will receive gently.
-    </p>
-    <p>
-Whatever you keep,
-I will not question.
-    </p>
-    <div class="heart" onclick="nextPage()">♥</div>
+    <p class="line">Whatever you choose to share, I receive gently.</p>
+    <p class="line">Whatever you keep, I will not question.</p>
+    <div class="symbol" onclick="nextPage()">♥</div>
   </div>
 
   <!-- PAGE 4 -->
   <div class="page">
-    <p>
-This was meant to be
-a journal.
-    </p>
-    <p>
-A journey of pages.
-    </p>
+    <p class="line">This was meant to be a journal.</p>
+    <p class="line">A journey of pages.</p>
     <div class="divider">✦ ✦ ✦</div>
-    <p>
-But every time I try to write you,
-you become more than words.
-    </p>
-    <div class="heart" onclick="nextPage()">♥</div>
+    <p class="line">But every time I try to write you,</p>
+    <p class="line">you become more than words.</p>
+    <div class="symbol" onclick="nextPage()">♥</div>
   </div>
 
   <!-- PAGE 5 -->
   <div class="page">
-    <p>
-Not in this life.
-    </p>
-    <p>
-Not in any life.
-    </p>
+    <p class="line">Not in this life.</p>
+    <p class="line">Not in any life.</p>
     <div class="divider">✿ ✿ ✿</div>
-    <p>
-I could never finish this book.
-    </p>
-    <p>
-Because you are not meant
-to be completed.
-    </p>
-    <div class="heart" onclick="nextPage()">♥</div>
+    <p class="line">I could never finish this book.</p>
+    <p class="line">Because you are not meant to be completed.</p>
+    <div class="symbol" onclick="nextPage()">♥</div>
   </div>
 
   <!-- PAGE 6 -->
   <div class="page">
-    <p>
-So this is where the pages stop.
-    </p>
-    <p>
-Not because the love ends.
-    </p>
+    <p class="line">So this is where the pages stop.</p>
+    <p class="line">Not because the love ends.</p>
     <div class="divider">❀ ❀ ❀</div>
-    <p>
-But because some things
-are meant to keep growing
-outside the book.
-    </p>
+    <p class="line">Some things are meant to keep growing outside the book.</p>
     <div class="end-note">
 This love asks for nothing.<br>
 It simply stays.
@@ -311,30 +188,36 @@ It simply stays.
 </div>
 
 <script>
+// ===== PAGE HANDLING =====
 const pages = document.querySelectorAll(".page");
 let current = 0;
 
-function updatePages() {
-  pages.forEach((p, i) => {
-    p.classList.toggle("active", i === current);
+// ===== LINE TYPING EFFECT =====
+function showLines(page) {
+  const lines = page.querySelectorAll(".line");
+  lines.forEach(p=>p.style.opacity=0);
+  lines.forEach((line,i)=>{
+    setTimeout(()=>{ line.style.opacity=1; }, i*700 );
   });
-  document.getElementById("pageNum").textContent =
-    (current + 1) + " / " + pages.length;
 }
 
-function nextPage() {
-  if (current < pages.length - 1) {
-    current++;
-    updatePages();
-  }
+// ===== PAGE UPDATE =====
+function updatePages(){
+  pages.forEach((p,i)=>p.classList.toggle("active", i===current));
+  showLines(pages[current]);
+  document.getElementById("pageNum").textContent = (current+1)+" / "+pages.length;
 }
 
-function prevPage() {
-  if (current > 0) {
-    current--;
-    updatePages();
-  }
+// ===== NAVIGATION =====
+function nextPage(){
+  if(current<pages.length-1){ current++; updatePages(); }
 }
+function prevPage(){
+  if(current>0){ current--; updatePages(); }
+}
+
+// ===== INITIAL PAGE =====
+updatePages();
 </script>
 
 </body>

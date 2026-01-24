@@ -1,262 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Immersive Love Journal</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Whispers of Love</title>
+
 <style>
-/* ===== GLOBAL ===== */
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'Georgia', serif;
-  background: linear-gradient(180deg,#fde2e2,#fff8f0);
-  display:flex; justify-content:center; align-items:center;
-  height:100vh; overflow:hidden; position:relative;
+/* ------------------ RESET ------------------ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Georgia", serif;
 }
 
-/* ===== PARTICLES ===== */
-.particle{
-  position:absolute;
-  width:12px; height:12px;
-  border-radius:50%;
-  background:rgba(255,0,80,0.2);
-  animation:float 20s linear infinite;
-}
-@keyframes float{
-  0%{transform:translateY(110vh) rotate(0deg);}
-  100%{transform:translateY(-20vh) rotate(360deg);}
+body {
+  background: radial-gradient(circle at top, #2b0014, #0e0006);
+  overflow: hidden;
+  color: #fff;
 }
 
-/* ===== BOOK ===== */
-.book{
-  width:95%;
-  max-width:900px;
-  height:90vh;
-  background:#fff6f0;
-  border-radius:8px;
-  box-shadow:0 20px 50px rgba(0,0,0,0.25);
-  padding:60px;
-  overflow:hidden;
-  position:relative;
+/* ------------------ BOOK CONTAINER ------------------ */
+#book {
+  position: relative;
+  width: 90vw;
+  max-width: 900px;
+  height: 90vh;
+  margin: auto;
+  top: 5vh;
+  perspective: 2000px;
 }
 
-/* ===== PAGE ===== */
-.page{
-  display:none;
-  height:100%;
+/* ------------------ PAGE ------------------ */
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #fff7f9, #ffeef3);
+  color: #3a001a;
+  border-radius: 12px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  padding: 60px;
+  transform-origin: left;
+  transition: transform 1.4s ease-in-out;
+  backface-visibility: hidden;
 }
-.page.active{display:block;}
 
-/* ===== TEXT ===== */
-.line{
-  font-size:24px;
-  font-weight:bold;
-  line-height:2;
-  margin-bottom:25px;
-  opacity:0;
-  transform:translateY(15px);
-  transition:opacity 1s ease, transform 1s ease;
+.page.hidden {
+  display: none;
 }
-.line.visible{opacity:1; transform:translateY(0);}
 
-/* ===== SYMBOLS ===== */
-.symbol{
-  text-align:center;
-  font-size:60px;
-  cursor:pointer;
-  opacity:0.6;
-  transition:transform 0.4s ease, opacity 0.4s ease;
-  user-select:none;
+.page-content {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 4fr 3fr;
+  gap: 20px;
 }
-.symbol:hover{transform:scale(1.2);opacity:1;}
 
-/* ===== FLOWERS/HEARTS ===== */
-.floating{
-  position:absolute;
-  font-size:50px;
-  cursor:pointer;
+/* ------------------ TEXT ------------------ */
+h1 {
+  font-size: 2.8rem;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+p {
+  font-size: 1.4rem;
+  line-height: 1.8;
+  opacity: 0;
+  animation: reveal 4s ease forwards;
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------ WHISPER WINDOWS ------------------ */
+.whisper {
+  position: absolute;
+  background: rgba(255, 240, 245, 0.95);
+  color: #5c0028;
+  padding: 18px 22px;
+  border-radius: 14px;
+  font-size: 1rem;
+  max-width: 220px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  animation: float 6s infinite ease-in-out;
+  cursor: pointer;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+/* ------------------ HEART NAVIGATION ------------------ */
+.nav {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 60px;
+}
+
+.heart {
+  width: 80px;
+  height: 80px;
+  background: crimson;
+  position: relative;
+  transform: rotate(-45deg);
+  cursor: pointer;
   transition: transform 0.5s ease;
-  user-select:none;
 }
 
-/* ===== WINDOWS ===== */
-.window{
-  position:absolute;
-  background:rgba(255,255,255,0.95);
-  border-radius:10px;
-  padding:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.25);
-  display:none;
-  z-index:1000;
-  max-width:250px;
-  font-size:16px;
-}
-.window .close{
-  position:absolute;
-  top:5px; right:8px;
-  cursor:pointer;
-  font-weight:bold;
+.heart::before,
+.heart::after {
+  content: "";
+  width: 80px;
+  height: 80px;
+  background: crimson;
+  border-radius: 50%;
+  position: absolute;
 }
 
-/* ===== END NOTE ===== */
-.end-note{
-  font-size:26px;
-  font-weight:bold;
-  opacity:0.7;
-  text-align:center;
-  margin-top:30px;
-  animation:pulse 1.6s ease-in-out infinite;
+.heart::before {
+  top: -40px;
+  left: 0;
 }
 
-/* ===== CONTROLS HEART ===== */
-.controls{
-  position:absolute;
-  bottom:20px;
-  width:100%;
-  text-align:center;
-}
-.controls .nav-heart{
-  font-size:70px;
-  cursor:pointer;
-  transition: transform 0.4s ease;
+.heart::after {
+  left: 40px;
+  top: 0;
 }
 
-/* ===== PULSE ===== */
-@keyframes pulse{
-  0%{transform:scale(1);opacity:0.7;}
-  50%{transform:scale(1.1);opacity:1;}
-  100%{transform:scale(1);opacity:0.7;}
+.heart:hover {
+  transform: rotate(-45deg) scale(1.3);
+}
+
+/* ------------------ FLOWERS ------------------ */
+.flower {
+  position: absolute;
+  font-size: 3.5rem;
+  opacity: 0.8;
+  animation: drift linear infinite;
+}
+
+@keyframes drift {
+  from { transform: translateY(100vh) rotate(0deg); }
+  to { transform: translateY(-120vh) rotate(360deg); }
+}
+
+/* ------------------ END PAGE ------------------ */
+.end {
+  text-align: center;
+  font-size: 1.6rem;
+  line-height: 2;
 }
 </style>
 </head>
+
 <body>
 
-<!-- PARTICLES -->
-<div class="particle" style="left:5%;animation-delay:0s;"></div>
-<div class="particle" style="left:20%;animation-delay:3s;"></div>
-<div class="particle" style="left:40%;animation-delay:6s;"></div>
-<div class="particle" style="left:60%;animation-delay:2s;"></div>
-<div class="particle" style="left:80%;animation-delay:5s;"></div>
+<div id="book">
 
-<div class="book">
+  <!-- PAGE 1 -->
+  <div class="page" id="page1">
+    <div class="page-content">
+      <h1>Whispers</h1>
+      <p>
+        Some love does not arrive loudly.  
+        It does not ask.  
+        It does not demand.  
+        It simply stays… gently, endlessly.
+      </p>
+      <p>
+        This is not a story asking for anything.  
+        It is only a place where love is allowed to exist freely.
+      </p>
+    </div>
 
-<!-- PAGE 1 -->
-<div class="page active" data-page="1">
-  <p class="line">This is a journal of love,</p>
-  <p class="line">not meant to be finished.</p>
-  <p class="line">Every word flows gently from my heart.</p>
-  <div class="symbol" onclick="showWindow(1)">🌹</div>
-</div>
+    <div class="whisper" style="top:120px;left:80px;">
+      Love notices the smallest details.
+    </div>
 
-<!-- PAGE 2 -->
-<div class="page" data-page="2">
-  <p class="line">Some words are whispers,</p>
-  <p class="line">some gestures are silent music.</p>
-  <p class="line">Click the flower to see a secret I love about you.</p>
-  <div class="symbol" onclick="showWindow(2)">💜</div>
-</div>
+    <div class="nav">
+      <div></div>
+      <div class="heart" onclick="nextPage()"></div>
+    </div>
+  </div>
 
-<!-- PAGE 3 -->
-<div class="page" data-page="3">
-  <p class="line">Even when unseen, your kindness shines.</p>
-  <p class="line">Even when quiet, your heart speaks volumes.</p>
-  <div class="symbol" onclick="showWindow(3)">🌼</div>
-</div>
+  <!-- PAGE 2 -->
+  <div class="page hidden" id="page2">
+    <div class="page-content">
+      <h1>Presence</h1>
+      <p>
+        Love is not proven by grand gestures.  
+        It is proven by consistency.  
+        By choosing the same person in silence.
+      </p>
+      <p>
+        Even when misunderstood.  
+        Even when unspoken.
+      </p>
+    </div>
 
-<!-- PAGE 4 -->
-<div class="page" data-page="4">
-  <p class="line">I could try to write it all,</p>
-  <p class="line">but each page becomes infinite.</p>
-  <p class="line">Your love is too vast to capture completely.</p>
-  <div class="symbol" onclick="showWindow(4)">🌹</div>
-</div>
+    <div class="whisper" style="top:200px;right:90px;">
+      Caring deeper than words.
+    </div>
 
-<!-- PAGE 5 -->
-<div class="page" data-page="5">
-  <p class="line">So let this book breathe with us,</p>
-  <p class="line">let the words float like petals.</p>
-  <p class="line">Click the heart to see a little truth of you.</p>
-  <div class="symbol" onclick="showWindow(5)">💜</div>
-</div>
+    <div class="nav">
+      <div class="heart" onclick="prevPage()"></div>
+      <div class="heart" onclick="nextPage()"></div>
+    </div>
+  </div>
 
-<!-- PAGE 6 -->
-<div class="page" data-page="6">
-  <p class="line">Not in this life,</p>
-  <p class="line">Not in any life.</p>
-  <p class="line">This love will never end.</p>
-  <div class="end-note">♥ Infinite Love ♥</div>
-</div>
+  <!-- PAGE 3 -->
+  <div class="page hidden" id="page3">
+    <div class="page-content">
+      <h1>Forever</h1>
+      <p class="end">
+        This book has no ending.  
+        Because some love cannot be completed  
+        not in this life  
+        not in any life.  
+      </p>
+      <p class="end">
+        It keeps growing.  
+        Quietly.  
+        Respectfully.  
+        Eternally.
+      </p>
+    </div>
 
-<!-- WINDOWS -->
-<div class="window" id="win1">
-  <span class="close" onclick="closeWindow('win1')">×</span>
-  <p>You are sweeter than you realize.</p>
-</div>
-<div class="window" id="win2">
-  <span class="close" onclick="closeWindow('win2')">×</span>
-  <p>Your care touches hearts silently.</p>
-</div>
-<div class="window" id="win3">
-  <span class="close" onclick="closeWindow('win3')">×</span>
-  <p>Even your quiet moments are full of love.</p>
-</div>
-<div class="window" id="win4">
-  <span class="close" onclick="closeWindow('win4')">×</span>
-  <p>You are more thoughtful than you think.</p>
-</div>
-<div class="window" id="win5">
-  <span class="close" onclick="closeWindow('win5')">×</span>
-  <p>Your little gestures make the world softer.</p>
-</div>
+    <div class="whisper" style="bottom:200px;left:120px;">
+      A love that never runs out.
+    </div>
 
-<!-- NAVIGATION -->
-<div class="controls">
-  <div class="nav-heart" onclick="nextPage()">❤️</div>
-</div>
+    <div class="nav">
+      <div class="heart" onclick="prevPage()"></div>
+      <div></div>
+    </div>
+  </div>
 
 </div>
 
+<!-- FLOWERS -->
 <script>
-// ===== VARIABLES =====
-const pages = document.querySelectorAll('.page');
-let current = 0;
-
-// ===== LINE ANIMATION =====
-function showLines(page){
-  const lines = page.querySelectorAll('.line');
-  lines.forEach(l=>l.classList.remove('visible'));
-  lines.forEach((line,i)=>{
-    setTimeout(()=>{ line.classList.add('visible'); }, i*800 + Math.random()*300);
-  });
+const flowers = ["🌹","🌼","💜"];
+for (let i = 0; i < 18; i++) {
+  const f = document.createElement("div");
+  f.className = "flower";
+  f.innerText = flowers[Math.floor(Math.random()*flowers.length)];
+  f.style.left = Math.random()*100 + "vw";
+  f.style.animationDuration = 12 + Math.random()*12 + "s";
+  document.body.appendChild(f);
 }
+</script>
 
-// ===== WINDOWS =====
-function showWindow(num){
-  const win = document.getElementById('win'+num);
-  if(win){ win.style.display='block'; }
-}
-function closeWindow(id){
-  const win = document.getElementById(id);
-  if(win){ win.style.display='none'; }
-}
+<!-- PAGE LOGIC -->
+<script>
+let current = 1;
+const total = 3;
 
-// ===== PAGE NAVIGATION =====
-function updatePages(){
-  pages.forEach((p,i)=>p.classList.toggle('active',i===current));
-  showLines(pages[current]);
-  // reset all windows
-  for(let i=1;i<=5;i++){ closeWindow('win'+i); }
+function nextPage() {
+  if (current < total) {
+    document.getElementById(`page${current}`).classList.add("hidden");
+    current++;
+    document.getElementById(`page${current}`).classList.remove("hidden");
+  }
 }
 
-function nextPage(){
-  if(current<pages.length-1){ current++; updatePages(); }
-}
-function prevPage(){
-  if(current>0){ current--; updatePages(); }
+function prevPage() {
+  if (current > 1) {
+    document.getElementById(`page${current}`).classList.add("hidden");
+    current--;
+    document.getElementById(`page${current}`).classList.remove("hidden");
+  }
 }
 
-// ===== INITIAL =====
-updatePages();
+document.querySelectorAll(".whisper").forEach(w => {
+  w.onclick = () => w.style.display = "none";
+});
 </script>
 
 </body>

@@ -8,26 +8,19 @@
 <style>
 :root{
   --bg:#140014;
-  --paper:#fff7fb;
-  --ink:#3a0d2b;
+  --paper:#fff6fb;
+  --ink:#3a0c2a;
   --accent:#e6397f;
-  --soft:#f6c1d1;
 }
 
 *{box-sizing:border-box}
 
 body{
   margin:0;
-  background:radial-gradient(circle at top, #2c0030, #120015);
   height:100vh;
+  background:radial-gradient(circle at top, #300035, #120015);
   overflow:hidden;
-  font-family:"Georgia", serif;
-}
-
-#scene{
-  position:relative;
-  width:100%;
-  height:100%;
+  font-family:Georgia, serif;
 }
 
 .book{
@@ -41,14 +34,14 @@ body{
 .page{
   position:absolute;
   width:90%;
-  max-width:920px;
+  max-width:950px;
   height:90%;
-  background:linear-gradient(#fff9fd,#fff2f8);
+  background:linear-gradient(#fff9fd,#fff1f7);
   border-radius:22px;
   padding:70px;
-  box-shadow:0 35px 90px rgba(0,0,0,.45);
+  box-shadow:0 40px 100px rgba(0,0,0,.45);
   opacity:0;
-  transform:scale(.96);
+  transform:scale(.95);
   transition:1s ease;
 }
 
@@ -68,7 +61,13 @@ body{
   font-size:21px;
   line-height:1.9;
   color:var(--ink);
-  margin:0 0 20px;
+  margin-bottom:20px;
+  animation:reveal 1.8s ease both;
+}
+
+@keyframes reveal{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:none}
 }
 
 .whisper{
@@ -82,204 +81,179 @@ body{
   animation:float 7s ease-in-out infinite;
 }
 
-.whisper.revealed{
+.whisper.hide{
   opacity:0;
   pointer-events:none;
-  transition:.7s;
+  transition:.6s;
 }
 
 @keyframes float{
-  0%,100%{transform:translateY(0)}
   50%{transform:translateY(-14px)}
 }
 
-.nav-heart{
+.nav{
   position:absolute;
   bottom:30px;
   left:50%;
   transform:translateX(-50%);
+  display:flex;
+  gap:30px;
+}
+
+.heart{
   width:90px;
   height:90px;
   background:var(--accent);
   clip-path:polygon(
-    50% 85%,
-    0 35%,
-    25% 5%,
-    50% 25%,
-    75% 5%,
-    100% 35%
+    50% 85%,0 35%,25% 5%,50% 25%,75% 5%,100% 35%
   );
   cursor:pointer;
   animation:pulse 2.2s infinite;
 }
 
 @keyframes pulse{
-  0%,100%{transform:translateX(-50%) scale(1)}
-  50%{transform:translateX(-50%) scale(1.15)}
+  50%{transform:scale(1.15)}
 }
 
 .flower{
   position:absolute;
   font-size:44px;
-  animation:drift linear infinite;
   opacity:.75;
+  animation:drift linear infinite;
 }
 
 @keyframes drift{
-  from{transform:translateY(120vh) rotate(0deg)}
+  from{transform:translateY(110vh) rotate(0deg)}
   to{transform:translateY(-140vh) rotate(360deg)}
 }
 </style>
 </head>
 
 <body>
-<div id="scene">
 
 <div class="book">
 
 <!-- PAGE 1 -->
 <div class="page active">
 <h1>Valentine’s Day</h1>
-<p>This book exists because love deserves gentleness.</p>
-<p>This Valentine’s Day, I didn’t want flowers that fade.</p>
-<p>I wanted to give you time, warmth, and honesty.</p>
+<p>This is not a gift you open once.</p>
+<p>This is a place where my love can exist quietly.</p>
+<p>This Valentine’s Day, I chose patience over performance.</p>
 
-<div class="whisper" style="top:180px;left:90px">You matter more than you know.</div>
-<div class="nav-heart"></div>
+<div class="whisper" style="top:200px;left:100px">You are deeply valued.</div>
+<div class="nav"><div class="heart"></div></div>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page">
-<h1>Why This Love Is Quiet</h1>
-<p>Some love doesn’t announce itself.</p>
-<p>It stays present. It listens.</p>
-<p>It allows space without leaving.</p>
+<h1>Why This Love Is Gentle</h1>
+<p>I don’t want to rush you.</p>
+<p>I don’t want to claim you.</p>
+<p>I only want to choose you — freely.</p>
 
-<div class="whisper" style="top:240px;right:140px">Your pace is safe here.</div>
-<div class="nav-heart"></div>
+<div class="whisper" style="top:260px;right:120px">Your pace is respected.</div>
+<div class="nav"><div class="heart"></div></div>
 </div>
 
 <!-- PAGE 3 -->
 <div class="page">
 <h1>Your Smile</h1>
-<p>Your smile makes people softer.</p>
-<p>It becomes a source of happiness for everyone around you.</p>
-<p>Sometimes I wish the world knew how rare that warmth is.</p>
+<p>Your smile makes people feel safe.</p>
+<p>It becomes a source of happiness for everyone.</p>
 
-<p>Maybe I don’t want to share that smile.</p>
-<p>Not out of selfishness — but reverence.</p>
+<p>Sometimes I don’t want to share it — not from fear, but love.</p>
 
-<div class="whisper" style="top:310px;left:150px">You heal without trying.</div>
-<div class="nav-heart"></div>
+<div class="whisper" style="top:300px;left:150px">You heal without trying.</div>
+<div class="nav"><div class="heart"></div></div>
 </div>
 
 <!-- PAGE 4 -->
 <div class="page">
-<h1>What I Can’t Explain</h1>
-<p>I love you so much that language feels incomplete.</p>
-<p>I try to fit you into sentences.</p>
-<p>You overflow them.</p>
+<h1>What Words Can’t Hold</h1>
+<p>I love you so much that language feels small.</p>
+<p>Even now, I don’t know how to explain it fully.</p>
 
-<p>Maybe love like this isn’t meant to be explained fully.</p>
-
-<div class="whisper" style="top:260px;right:160px">Some truths are felt.</div>
-<div class="nav-heart"></div>
+<div class="whisper" style="top:240px;right:160px">Some truths are felt.</div>
+<div class="nav"><div class="heart"></div></div>
 </div>
 
 <!-- PAGE 5 -->
 <div class="page">
 <h1>My World</h1>
-<p>Slowly, without realizing it, my days began to orbit you.</p>
-<p>Not dependency — alignment.</p>
-<p>Not need — choice.</p>
-
 <p>You didn’t become my whole world.</p>
-<p>You became its meaning.</p>
+<p>You became the reason it made sense.</p>
 
-<div class="whisper" style="top:210px;left:130px">You are home.</div>
-<div class="nav-heart"></div>
+<div class="whisper" style="top:220px;left:130px">Home isn’t a place.</div>
+<div class="nav"><div class="heart"></div></div>
 </div>
 
 <!-- PAGE 6 -->
 <div class="page">
-<h1>Even When You Don’t Feel It</h1>
-<p>There will be days you doubt yourself.</p>
-<p>On those days, my love does not weaken.</p>
-<p>It stays. Quietly. Steadily.</p>
+<h1>When You Doubt</h1>
+<p>Even on days you feel unsure,</p>
+<p>my love remains steady.</p>
 
-<div class="whisper" style="top:260px;right:120px">I don’t leave.</div>
-<div class="nav-heart"></div>
+<div class="whisper" style="top:260px;right:120px">I stay.</div>
+<div class="nav"><div class="heart"></div></div>
 </div>
 
 <!-- PAGE 7 -->
 <div class="page">
-<h1>The Future (No Pressure)</h1>
+<h1>The Future (Softly)</h1>
 <p>I don’t love you with deadlines.</p>
-<p>I love you with patience.</p>
+<p>I love you with intention.</p>
 
-<p>If life allows, someday I would like to wake up beside you and call that home.</p>
-
-<div class="whisper" style="top:280px;left:170px">I choose you daily.</div>
-<div class="nav-heart"></div>
+<div class="whisper" style="top:260px;left:160px">I choose you.</div>
+<div class="nav"><div class="heart"></div></div>
 </div>
 
 <!-- PAGE 8 — PROPOSAL -->
 <div class="page">
 <h1>A Question, Gently</h1>
-<p>This is not a demand.</p>
-<p>Not a moment that needs an answer today.</p>
-
+<p>This is not a moment asking for certainty.</p>
 <p>This is simply my truth.</p>
 
-<p>If one day you feel ready — in your time, in your way —</p>
-<p>I would be honored to walk life with you as your partner.</p>
+<p>If one day you choose it, I would love to walk life with you.</p>
 
-<p>To grow, to learn, to fail gently, and to love deeply.</p>
-
-<div class="whisper" style="top:320px;right:150px">Only if you choose.</div>
-<div class="nav-heart"></div>
+<div class="whisper" style="top:300px;right:150px">Only if you choose.</div>
+<div class="nav"><div class="heart"></div></div>
 </div>
 
 <!-- PAGE 9 -->
 <div class="page">
 <h1>No Ending</h1>
-<p>This book was never meant to be finished.</p>
+<p>This book can never be finished.</p>
 <p>Not in this life.</p>
 <p>Not in any life.</p>
 
-<p>Loving you keeps creating pages I can never complete.</p>
-
-<div class="whisper" style="top:250px;left:150px">Infinity feels like you.</div>
-<div class="nav-heart"></div>
+<div class="whisper" style="top:240px;left:150px">Infinity feels like this.</div>
 </div>
 
-</div>
 </div>
 
 <script>
 const pages=[...document.querySelectorAll(".page")];
-let index=0;
+let i=0;
 
-document.querySelectorAll(".nav-heart").forEach(h=>{
+document.querySelectorAll(".heart").forEach(h=>{
   h.onclick=()=>{
-    pages[index].classList.remove("active");
-    index=(index+1)%pages.length;
-    pages[index].classList.add("active");
+    pages[i].classList.remove("active");
+    i=Math.min(i+1,pages.length-1);
+    pages[i].classList.add("active");
   };
 });
 
 document.querySelectorAll(".whisper").forEach(w=>{
-  w.onclick=()=>w.classList.add("revealed");
+  w.onclick=()=>w.classList.add("hide");
 });
 
-// floating flowers
 ["🌹","🌼","💜","❤️"].forEach(sym=>{
-  for(let i=0;i<7;i++){
+  for(let i=0;i<8;i++){
     const f=document.createElement("div");
     f.className="flower";
     f.textContent=sym;
     f.style.left=Math.random()*100+"%";
-    f.style.animationDuration=22+Math.random()*25+"s";
+    f.style.animationDuration=25+Math.random()*25+"s";
     document.body.appendChild(f);
   }
 });

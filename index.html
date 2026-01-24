@@ -1,163 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Whispers of Love</title>
+<meta charset="UTF-8">
+<title>Valentine Whispers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ------------------ RESET ------------------ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Georgia", serif;
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Georgia",serif}
+body{
+  background:radial-gradient(circle at top,#3b001a,#120008);
+  overflow:hidden;
+  color:#3a001a;
 }
 
-body {
-  background: radial-gradient(circle at top, #2b0014, #0e0006);
-  overflow: hidden;
-  color: #fff;
+#book{
+  width:92vw;
+  max-width:1000px;
+  height:92vh;
+  margin:auto;
+  margin-top:4vh;
+  position:relative;
 }
 
-/* ------------------ BOOK CONTAINER ------------------ */
-#book {
-  position: relative;
-  width: 90vw;
-  max-width: 900px;
-  height: 90vh;
-  margin: auto;
-  top: 5vh;
-  perspective: 2000px;
+.page{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:linear-gradient(135deg,#fff5f8,#ffe8ef);
+  border-radius:14px;
+  box-shadow:0 40px 80px rgba(0,0,0,.6);
+  padding:70px;
+  display:none;
 }
 
-/* ------------------ PAGE ------------------ */
-.page {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #fff7f9, #ffeef3);
-  color: #3a001a;
-  border-radius: 12px;
-  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-  padding: 60px;
-  transform-origin: left;
-  transition: transform 1.4s ease-in-out;
-  backface-visibility: hidden;
+.page.active{display:block}
+
+.page-content{
+  height:100%;
+  display:grid;
+  grid-template-rows:1fr 4fr 3fr;
+  gap:24px;
 }
 
-.page.hidden {
-  display: none;
+h1{
+  text-align:center;
+  font-size:3rem;
+  letter-spacing:2px;
 }
 
-.page-content {
-  height: 100%;
-  display: grid;
-  grid-template-rows: 1fr 4fr 3fr;
-  gap: 20px;
+p{
+  font-size:1.45rem;
+  line-height:1.9;
+  opacity:0;
+  animation:slowReveal 4.5s ease forwards;
 }
 
-/* ------------------ TEXT ------------------ */
-h1 {
-  font-size: 2.8rem;
-  text-align: center;
-  letter-spacing: 2px;
+@keyframes slowReveal{
+  from{opacity:0;transform:translateY(25px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-p {
-  font-size: 1.4rem;
-  line-height: 1.8;
-  opacity: 0;
-  animation: reveal 4s ease forwards;
+/* Hearts Navigation */
+.nav{
+  position:absolute;
+  bottom:30px;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:0 80px;
 }
 
-@keyframes reveal {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.heart{
+  width:90px;
+  height:90px;
+  background:#c0003b;
+  position:relative;
+  transform:rotate(-45deg);
+  cursor:pointer;
+  transition:.6s ease;
 }
 
-/* ------------------ WHISPER WINDOWS ------------------ */
-.whisper {
-  position: absolute;
-  background: rgba(255, 240, 245, 0.95);
-  color: #5c0028;
-  padding: 18px 22px;
-  border-radius: 14px;
-  font-size: 1rem;
-  max-width: 220px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  animation: float 6s infinite ease-in-out;
-  cursor: pointer;
+.heart::before,.heart::after{
+  content:"";
+  width:90px;
+  height:90px;
+  background:#c0003b;
+  border-radius:50%;
+  position:absolute;
 }
 
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
-  100% { transform: translateY(0px); }
+.heart::before{top:-45px;left:0}
+.heart::after{left:45px;top:0}
+
+.heart:hover{transform:rotate(-45deg) scale(1.35)}
+
+/* Whisper Windows */
+.whisper{
+  position:absolute;
+  background:rgba(255,240,246,.96);
+  color:#5a0025;
+  padding:18px 22px;
+  border-radius:16px;
+  font-size:1.05rem;
+  max-width:260px;
+  box-shadow:0 25px 45px rgba(0,0,0,.45);
+  cursor:pointer;
+  animation:float 6s infinite ease-in-out;
 }
 
-/* ------------------ HEART NAVIGATION ------------------ */
-.nav {
-  position: absolute;
-  bottom: 30px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 60px;
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+  100%{transform:translateY(0)}
 }
 
-.heart {
-  width: 80px;
-  height: 80px;
-  background: crimson;
-  position: relative;
-  transform: rotate(-45deg);
-  cursor: pointer;
-  transition: transform 0.5s ease;
+/* Flowers */
+.flower{
+  position:absolute;
+  font-size:4rem;
+  opacity:.85;
+  animation:drift linear infinite;
 }
 
-.heart::before,
-.heart::after {
-  content: "";
-  width: 80px;
-  height: 80px;
-  background: crimson;
-  border-radius: 50%;
-  position: absolute;
+@keyframes drift{
+  from{transform:translateY(110vh) rotate(0)}
+  to{transform:translateY(-130vh) rotate(360deg)}
 }
 
-.heart::before {
-  top: -40px;
-  left: 0;
-}
-
-.heart::after {
-  left: 40px;
-  top: 0;
-}
-
-.heart:hover {
-  transform: rotate(-45deg) scale(1.3);
-}
-
-/* ------------------ FLOWERS ------------------ */
-.flower {
-  position: absolute;
-  font-size: 3.5rem;
-  opacity: 0.8;
-  animation: drift linear infinite;
-}
-
-@keyframes drift {
-  from { transform: translateY(100vh) rotate(0deg); }
-  to { transform: translateY(-120vh) rotate(360deg); }
-}
-
-/* ------------------ END PAGE ------------------ */
-.end {
-  text-align: center;
-  font-size: 1.6rem;
-  line-height: 2;
+/* Ending emphasis */
+.end{
+  font-size:1.6rem;
+  text-align:center;
+  line-height:2.1;
 }
 </style>
 </head>
@@ -166,123 +140,178 @@ p {
 
 <div id="book">
 
-  <!-- PAGE 1 -->
-  <div class="page" id="page1">
-    <div class="page-content">
-      <h1>Whispers</h1>
-      <p>
-        Some love does not arrive loudly.  
-        It does not ask.  
-        It does not demand.  
-        It simply stays… gently, endlessly.
-      </p>
-      <p>
-        This is not a story asking for anything.  
-        It is only a place where love is allowed to exist freely.
-      </p>
-    </div>
-
-    <div class="whisper" style="top:120px;left:80px;">
-      Love notices the smallest details.
-    </div>
-
-    <div class="nav">
-      <div></div>
-      <div class="heart" onclick="nextPage()"></div>
-    </div>
+<!-- PAGE 1 -->
+<div class="page active">
+  <div class="page-content">
+    <h1>Valentine’s Day</h1>
+    <p>
+      Valentine’s Day arrives every year, dressed in red, flowers, and promises.
+      But some love does not belong to one day.
+      It lives quietly, long before the calendar notices.
+    </p>
+    <p>
+      This book exists for that kind of love —
+      the kind that stays even when nothing is asked,
+      the kind that chooses gently,
+      the kind that never rushes.
+    </p>
   </div>
+  <div class="whisper" style="top:120px;left:90px">Love is patient even on Valentine’s Day.</div>
+  <div class="nav"><div></div><div class="heart" onclick="next()"></div></div>
+</div>
 
-  <!-- PAGE 2 -->
-  <div class="page hidden" id="page2">
-    <div class="page-content">
-      <h1>Presence</h1>
-      <p>
-        Love is not proven by grand gestures.  
-        It is proven by consistency.  
-        By choosing the same person in silence.
-      </p>
-      <p>
-        Even when misunderstood.  
-        Even when unspoken.
-      </p>
-    </div>
-
-    <div class="whisper" style="top:200px;right:90px;">
-      Caring deeper than words.
-    </div>
-
-    <div class="nav">
-      <div class="heart" onclick="prevPage()"></div>
-      <div class="heart" onclick="nextPage()"></div>
-    </div>
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="page-content">
+    <h1>Not Just A Day</h1>
+    <p>
+      Valentine’s Day is often loud.
+      But real love is softer.
+      It listens more than it speaks.
+      It understands more than it explains.
+    </p>
+    <p>
+      It is shown in presence,
+      in respect,
+      in choosing the same soul every morning —
+      not because it is easy,
+      but because it is right.
+    </p>
   </div>
+  <div class="whisper" style="top:220px;right:110px">Consistency is the deepest romance.</div>
+  <div class="nav"><div class="heart" onclick="prev()"></div><div class="heart" onclick="next()"></div></div>
+</div>
 
-  <!-- PAGE 3 -->
-  <div class="page hidden" id="page3">
-    <div class="page-content">
-      <h1>Forever</h1>
-      <p class="end">
-        This book has no ending.  
-        Because some love cannot be completed  
-        not in this life  
-        not in any life.  
-      </p>
-      <p class="end">
-        It keeps growing.  
-        Quietly.  
-        Respectfully.  
-        Eternally.
-      </p>
-    </div>
-
-    <div class="whisper" style="bottom:200px;left:120px;">
-      A love that never runs out.
-    </div>
-
-    <div class="nav">
-      <div class="heart" onclick="prevPage()"></div>
-      <div></div>
-    </div>
+<!-- PAGE 3 -->
+<div class="page">
+  <div class="page-content">
+    <h1>Quiet Devotion</h1>
+    <p>
+      Some love is loud enough for the world.
+      Some love is meant only for two hearts.
+    </p>
+    <p>
+      It grows through patience,
+      through forgiveness,
+      through understanding silence
+      and honoring freedom.
+    </p>
   </div>
+  <div class="whisper" style="bottom:240px;left:140px">Love that never cages.</div>
+  <div class="nav"><div class="heart" onclick="prev()"></div><div class="heart" onclick="next()"></div></div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page">
+  <div class="page-content">
+    <h1>Respect</h1>
+    <p>
+      Love without respect is noise.
+      Love with respect becomes a home.
+    </p>
+    <p>
+      It protects individuality,
+      celebrates growth,
+      and never tries to own —
+      only to walk beside.
+    </p>
+  </div>
+  <div class="whisper" style="top:180px;right:130px">Respect is romance that lasts.</div>
+  <div class="nav"><div class="heart" onclick="prev()"></div><div class="heart" onclick="next()"></div></div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page">
+  <div class="page-content">
+    <h1>Looking Forward</h1>
+    <p>
+      Some hearts love with intention.
+      They do not play.
+      They do not run.
+    </p>
+    <p>
+      They look forward —
+      toward commitment,
+      toward building a life,
+      toward choosing one person,
+      not just for today,
+      but for all tomorrows.
+    </p>
+  </div>
+  <div class="whisper" style="bottom:260px;left:100px">Love that thinks long-term.</div>
+  <div class="nav"><div class="heart" onclick="prev()"></div><div class="heart" onclick="next()"></div></div>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page">
+  <div class="page-content">
+    <h1>Beyond Valentine’s</h1>
+    <p>
+      Valentine’s Day may end at midnight.
+      But some love refuses to stop.
+    </p>
+    <p>
+      It stays on ordinary days.
+      On difficult days.
+      On days when nothing feels romantic —
+      yet everything still feels certain.
+    </p>
+  </div>
+  <div class="whisper" style="top:140px;right:160px">Ordinary days matter most.</div>
+  <div class="nav"><div class="heart" onclick="prev()"></div><div class="heart" onclick="next()"></div></div>
+</div>
+
+<!-- PAGE 7 -->
+<div class="page">
+  <div class="page-content">
+    <h1>Never Ending</h1>
+    <p class="end">
+      This book cannot be completed.
+      Not in this life.
+      Not in any life.
+    </p>
+    <p class="end">
+      Because some love grows faster than pages.
+      And some souls are too special
+      to ever be fully written.
+    </p>
+  </div>
+  <div class="whisper" style="bottom:220px;right:150px">A love without a final page.</div>
+  <div class="nav"><div class="heart" onclick="prev()"></div><div></div></div>
+</div>
 
 </div>
 
-<!-- FLOWERS -->
 <script>
-const flowers = ["🌹","🌼","💜"];
-for (let i = 0; i < 18; i++) {
-  const f = document.createElement("div");
-  f.className = "flower";
-  f.innerText = flowers[Math.floor(Math.random()*flowers.length)];
-  f.style.left = Math.random()*100 + "vw";
-  f.style.animationDuration = 12 + Math.random()*12 + "s";
-  document.body.appendChild(f);
-}
-</script>
+let pages=document.querySelectorAll(".page");
+let index=0;
 
-<!-- PAGE LOGIC -->
-<script>
-let current = 1;
-const total = 3;
-
-function nextPage() {
-  if (current < total) {
-    document.getElementById(`page${current}`).classList.add("hidden");
-    current++;
-    document.getElementById(`page${current}`).classList.remove("hidden");
+function next(){
+  if(index<pages.length-1){
+    pages[index].classList.remove("active");
+    index++;
+    pages[index].classList.add("active");
   }
 }
-
-function prevPage() {
-  if (current > 1) {
-    document.getElementById(`page${current}`).classList.add("hidden");
-    current--;
-    document.getElementById(`page${current}`).classList.remove("hidden");
+function prev(){
+  if(index>0){
+    pages[index].classList.remove("active");
+    index--;
+    pages[index].classList.add("active");
   }
 }
-
-document.querySelectorAll(".whisper").forEach(w => {
-  w.onclick = () => w.style.display = "none";
+document.querySelectorAll(".whisper").forEach(w=>{
+  w.onclick=()=>w.style.display="none";
+});
+["🌹","🌼","💜"].forEach((f,i)=>{
+  for(let j=0;j<6;j++){
+    let fl=document.createElement("div");
+    fl.className="flower";
+    fl.innerText=f;
+    fl.style.left=Math.random()*100+"vw";
+    fl.style.animationDuration=12+Math.random()*15+"s";
+    document.body.appendChild(fl);
+  }
 });
 </script>
 
